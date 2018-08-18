@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/main.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <div id="slider-box"></div>
+    <br />
+    <div id="slider-box1"></div>
+  </div>
+  <script src="./js/slider.js"></script>
+  <script>
+    const images = [
+      { img: 'https://fakeimg.pl/650x300/ffaa00/?text=World1&font=lobster%22', href: '#1' },
+      { img: 'https://fakeimg.pl/650x300/ffa0aa/?text=World2&font=lobster%22', href: '#2' },
+      { img: 'https://fakeimg.pl/650x300/fc0acc/?text=World3&font=lobster%22', href: '#3' },
+      { img: 'https://fakeimg.pl/650x300/ffcc00/?text=World4&font=lobster%22', href: '#4' },
+    ];
+
+    const images1 = [
+      { img: 'https://fakeimg.pl/300x200/ffaa00/?text=World1&font=lobster%22', href: '#1' },
+      { img: 'https://fakeimg.pl/300x200/ffa0aa/?text=World2&font=lobster%22', href: '#2' },
+      { img: 'https://fakeimg.pl/300x200/fc0acc/?text=World3&font=lobster%22', href: '#3' },
+      { img: 'https://fakeimg.pl/300x200/ffcc00/?text=World4&font=lobster%22', href: '#4' },
+    ];
+
+    const sliderArguments = {
+      container: '#slider-box', // 內容位置
+      containerWidth: 650, // 內容寬度
+      containerHeight: 300, // 內容高度
+      images: images, // 圖片資料
+      initNum: 0, // 預設起始顯示
+      autoPlay: { // 自動播放物件
+        // moveDirection: 'left', // 方向 not work
+        time: 1500, // 多久執行一次
+      }, // 是否自動播放
+      speed: 300, // 動畫速度
+      tools: ['pageBtn', 'dotBtn'], // 要使用什麼功能（上下頁，dot page
+    };
+
+    const sliderArguments1 = {
+      container: '#slider-box1', // 內容位置
+      containerWidth: 300, // 內容寬度
+      containerHeight: 200, // 內容高度
+      images: images1, // 圖片資料
+      initNum: 1, // 預設起始顯示
+      autoPlay: { // 自動播放物件
+        // moveDirection: 'left', // 方向 not work
+        time: 2000, // 多久執行一次
+      }, // 是否自動播放
+      speed: 300, // 動畫速度
+      tools: ['pageBtn', 'dotBtn'], // 要使用什麼功能（上下頁，dot page
+    };
+
+    (function(){
+      new customSlider(sliderArguments);
+      new customSlider(sliderArguments1);
+    })()
+  </script>
+</body>
+</html>
