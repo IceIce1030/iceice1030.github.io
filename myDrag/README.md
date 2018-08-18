@@ -7,7 +7,9 @@ need jquery and link js
 <script src="./js/myDrag.js"></script>  
 
 # id，高度，寬度，跳頁按鈕  
+<pre><code>
 var myDrag = new dragenFun('#myDrag',"100vh - 50px","");  
+</pre></code>
 
 # 註冊menu事件  
 <pre><code>
