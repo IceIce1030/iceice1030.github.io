@@ -32,5 +32,5 @@ const sliderArguments = {
   tools: ['pageBtn', 'dotBtn'], // 要使用什麼功能（上下頁，dot page  
 };  
 
-#do it
+# do it  
 new customSlider(sliderArguments);  
