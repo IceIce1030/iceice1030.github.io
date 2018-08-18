@@ -1,21 +1,21 @@
 # mySlider
 mySlider
 
-you need to link css and js
-<link rel="stylesheet" href="/css/main.css">
-<script src="/js/slider.js"></script>
+you need to link css and js  
+<link rel="stylesheet" href="/css/main.css">  
+<script src="./js/slider.js"></script>  
 
 #how to use
 
 
 
 # my data
-const images = [
-  { img: 'https://fakeimg.pl/650x300/ffaa00/?text=World1&font=lobster%22', href: '#1' },
-  { img: 'https://fakeimg.pl/650x300/ffa0aa/?text=World2&font=lobster%22', href: '#2' },
-  { img: 'https://fakeimg.pl/650x300/fc0acc/?text=World3&font=lobster%22', href: '#3' },
-  { img: 'https://fakeimg.pl/650x300/ffcc00/?text=World4&font=lobster%22', href: '#4' },
-];
+const images = [  
+  { img: 'https://fakeimg.pl/650x300/ffaa00/?text=World1&font=lobster%22', href: '#1' },  
+  { img: 'https://fakeimg.pl/650x300/ffa0aa/?text=World2&font=lobster%22', href: '#2' },  
+  { img: 'https://fakeimg.pl/650x300/fc0acc/?text=World3&font=lobster%22', href: '#3' },  
+  { img: 'https://fakeimg.pl/650x300/ffcc00/?text=World4&font=lobster%22', href: '#4' },  
+];  
 
 
 # option
