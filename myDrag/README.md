@@ -10,10 +10,12 @@ need jquery and link js
 var myDrag = new dragenFun('#myDrag',"100vh - 50px","");  
 
 # 註冊menu事件  
+<pre><code>
 $('.menu > div').on('click',function(){  
-        let page = $(this).data("page");  
-        myDrag._jumpView(page);  
+    let page = $(this).data("page");  
+    myDrag._jumpView(page);  
 });  
+</pre></code>
 
 
 # You can go to the page you want to go to  
