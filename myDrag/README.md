@@ -19,8 +19,12 @@ $('.menu > div').on('click',function(){
 
 
 # You can go to the page you want to go to  
+<pre><code>
 myDrag._jumpView(number);  
+</pre></code>
 
 
 # Will return to the current display page  
+<pre><code>
 myDrag.getcurrentIndex()  
+</pre></code>
