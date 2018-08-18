@@ -11,8 +11,8 @@ var myDrag = new dragenFun('#myDrag',"100vh - 50px","");
 
 # 註冊menu事件  
 $('.menu > div').on('click',function(){  
-  let page = $(this).data("page");  
-  myDrag._jumpView(page);  
+        let page = $(this).data("page");  
+        myDrag._jumpView(page);  
 });  
 
 
