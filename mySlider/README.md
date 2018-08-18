@@ -10,15 +10,18 @@ you need to link css and js
 
 
 # my data
+<pre><code>
 const images = [  
   { img: 'https://fakeimg.pl/650x300/ffaa00/?text=World1&font=lobster%22', href: '#1' },  
   { img: 'https://fakeimg.pl/650x300/ffa0aa/?text=World2&font=lobster%22', href: '#2' },  
   { img: 'https://fakeimg.pl/650x300/fc0acc/?text=World3&font=lobster%22', href: '#3' },  
   { img: 'https://fakeimg.pl/650x300/ffcc00/?text=World4&font=lobster%22', href: '#4' },  
 ];  
+</pre></code>
 
 
-# option
+# option  
+<pre><code>
 const sliderArguments = {  
   container: '#slider-box', // 內容位置  
   containerWidth: 650, // 內容寬度  
@@ -31,6 +34,9 @@ const sliderArguments = {
   speed: 300, // 動畫速度  
   tools: ['pageBtn', 'dotBtn'], // 要使用什麼功能（上下頁，dot page  
 };  
+</pre></code>
 
 # do it  
+<pre><code>
 new customSlider(sliderArguments);  
+</pre></code>
