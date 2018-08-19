@@ -1,0 +1,127 @@
+.container{
+  width: 960px;
+  margin: auto;
+}
+.title{
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin: 20px 0;
+}
+.titleMid{
+  font-size: 18px;
+}
+.titleSM{
+  font-size: 16px;
+  margin: 10px 0;
+}
+.infoBox{
+  background-color: #E6D1D1;
+  padding: 20px;
+  color: #675252;
+  width: 250px;
+}
+.infoBox > div + div{
+  margin-top: 10px;
+}
+.infoBox > .infoTitle{
+  font-size: 15px;
+  text-align: center;
+}
+.infoBox > .imgBox{
+  width: calc(100% - 20px);
+  position: relative;
+  padding: 10px;
+  border: 1px solid rgb(211, 179, 179);
+}
+.infoBox > .imgBox > img{
+  display: block;
+  margin: auto;
+  width: 200px;
+}
+.infoBox > .intro{
+  font-size: 12px;
+}
+
+.CountDays > div{
+  margin: 10px 0;
+}
+.btnBox{
+  text-align: center;
+}
+.btnBox > div{
+  display: inline-block;
+  border-radius: 3px;
+  background: #8D5757;
+  color: #E6D1D1;
+  padding: 6px 8px;
+  cursor: pointer;
+  border: 1px solid #8D5757;
+  box-shadow: 2px 2px #675252;
+  transition: .2s;
+}
+.btnBox > div.active{
+  background: #E6D1D1;
+  color: #675252;
+  transform: translateY(1px);
+  border: 1px solid #675252;
+  box-shadow: 0px 0px #675252;
+}
+.btnBox > div::selection {
+	background: rgba(0,0,0,0);
+}
+.btnBox > div::-moz-selection {
+	background: rgba(0,0,0,0);
+}
+.collectBox{
+  margin-top: 20px;
+  width: 80px;
+  height: 120px;
+  border-radius: 3px;
+  position: relative;
+}
+.collectBox > .tubShell{
+  position: relative;
+  height: 10%;
+  background: url(/images/wood.jpg);
+  background-size: 250px;
+  background-position: center center;
+  transition: 1s;
+}
+.collectBox > .tubShell.open{
+  transform: rotate(-90deg) translate(35px ,-45px);
+}
+.collectBox > .tubBody{
+  background: url(/images/wood.jpg);
+  background-size: 250px;
+  position: relative;
+  height: 90%;
+}
+.bubble{
+  background: #d00;
+  color: #fff;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 20px 0 40px 0;
+  position: relative;
+}
+.bubble:before{
+  content: '';
+  display: inline-block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: #d00;
+  bottom: -20px;
+  left: 20px;
+}
+.copyImgBox{
+  position: absolute;
+  background-color: #f00;
+  display: none;
+}
+.copyImgBox > img{
+  width: 200px;
+}
