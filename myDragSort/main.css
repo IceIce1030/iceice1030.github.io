@@ -1,0 +1,51 @@
+*{
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  outline: 1px solid #f00;
+}
+html,
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+h1{
+  text-align: center;
+}
+.header{
+  height: 50px;
+  background-color: #fa0;
+ 
+}
+.footer{
+  height: 50px;
+  width: 100%;
+  background: #0af;
+  position: fixed;
+  bottom: 0;
+}
+.fakeBody111{
+  height: 60vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;  /*為了讓scroll順暢*/
+  /* overflow: hidden; */
+}
+.fixed{
+  left: 0;
+  -webkit-overflow-scrolling: touch;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.body{
+  height: calc(100vh - 100px);
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;  /*為了讓scroll順暢*/
+}
+li{
+  text-align: center;
+  height: 100px;
+  line-height: 100px;
+  -moz-user-select: none;  /* for Firefox */ 
+  -webkit-user-select: none;   /* for Chrome */
+}

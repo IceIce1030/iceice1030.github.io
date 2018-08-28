@@ -1,0 +1,133 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0,maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>商店街個人賣場</title>
+    <script src="https://msells.pcstore.com.tw/js/jquery-2.1.1.min.js"></script>
+    <style>
+        body{margin: 0;padding: 0;border: 0;}
+        div,ul,li{margin: 0;padding: 0;border: 0;}
+        #main{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .box{
+            width: calc(50% - 2px);
+            height: 200px;
+            border:1px solid #ff0000;
+            background-color:#636363;
+            float: left;
+        }
+
+        .boxmove{
+            position: fixed;
+            background-color:#000;
+            color: #fff;
+            border:1px solid #000;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main">
+    <div class="box a1"></div>
+    <div class="box a2"></div>
+    <div class="box a3"></div>
+    <div class="box a4"></div>
+    <div class="box a5"></div>
+    <div class="box a6"></div>
+    <div class="box a7"></div>
+    <div class="box a8"></div>
+    <div class="box a9"></div>
+    <div class="box a10"></div>
+    <div class="box a11"></div>
+    <div class="box a12"></div>
+    <div class="box a13"></div>
+</div>
+
+<script>
+try{
+    var mainobj = document.getElementById("main");
+    var _touchtimes = null;
+    var _touchflag = false;
+    var _touchtag = null;
+    var _startX = 0, _startY = 0;
+    var _scrolltop = 0;
+    var _tagoffsetTop = 0;
+
+    //移動div
+    var moveTag = function(moveX,moveY){
+        console.log("moveTag");
+        if(moveY == _startY) return false;
+        var top = 0;
+        var tagtop = 0;
+        if(moveY > _startY){//手指由上往下 向上滑
+            top = _scrolltop + (moveY-_startY);
+        }else{//手指由下往上 向下滑
+            top = _scrolltop - ( _startY-moveY ) ;
+        }
+        
+        console.log("moveTag","_startY=>"+_startY+",moveY=>"+moveY+",top=>"+top);
+        if(top>0) {
+            mainobj.scrollTop = top+50;
+        }
+    }
+
+    var touchstart = function(e){
+        var ev = e || event;
+        console.log("touchstart","clientX=>"+ev.touches[0].clientX+",clientY=>"+ev.touches[0].clientY,ev);
+        _touchtimes = window.setTimeout(function(){
+            _touchflag = true;
+            _touchtag = ev.target;
+            _startX = ev.touches[0].clientX;
+            _startY = ev.touches[0].clientY;
+            _scrolltop = mainobj.scrollTop;
+            console.log("touchstart","setTimeout run ","scrollTop=>"+mainobj.scrollTop+",_startY=>"+_startY);
+            _touchtag.classList.add("boxmove");
+            _touchtag.style.top ="200px";
+        },3000);
+    }
+
+    var touchmove = function(e){
+        var ev = e || event;
+        console.log("touchmove","clientX=>"+ev.touches[0].clientX,"clientY=>"+ev.touches[0].clientY);
+        if(_touchflag) moveTag(ev.touches[0].clientX,ev.pageY);
+    }
+
+    var scroll = function(e){
+        var ev = e || event;
+        console.log("scroll",mainobj.scrollTop);
+    }
+
+    var touchend = function(e){
+        var ev = e || event;
+        console.log("touchend");
+        if(null != _touchtag) _touchtag.classList.remove("boxmove");
+        if(_touchtimes) clearTimeout(_touchtimes);
+        _scrolltop = 0;
+        _touchflag = false;
+        _touchtag = null;
+        _touchtimes = null;
+        _startX = 0;
+        _startY = 0;
+        _tagoffsetTop = 0;
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event){
+        mainobj.addEventListener("touchstart",touchstart,false);
+        mainobj.addEventListener("touchmove",touchmove,false);
+        mainobj.addEventListener("touchend",touchend,false);
+        mainobj.addEventListener("scroll",scroll,false);
+    });
+
+}catch(e){
+    console.log(e);
+}
+</script>
+</body>
+</html>

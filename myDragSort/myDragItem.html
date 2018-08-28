@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      box-sizing: border-box;
+    }
+    body{
+      -webkit-overflow-scrolling: touch;
+    }
+    .wrap{
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: auto;
+    }
+    .noTouch{
+      -webkit-overflow-scrolling: auto;
+    }
+    .wrap:after{
+      content: '';
+      width: 0;
+      display: block;
+      clear: both;
+    }
+    .wrap > div{
+      border: 1px solid #000;
+      background: rgba(0,0,0,.3);
+      width: calc(100% / 4);
+      float: left;
+      height: 120px;
+      line-height: 120px;
+      text-align: center;
+      -webkit-touch-callout:none;
+      -webkit-user-select:none;
+      -khtml-user-select:none;
+      -moz-user-select:none;
+      -ms-user-select:none;
+      user-select:none;
+    }
+    /* .item:after{
+      content:'';
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      z-index: 1;
+      background-color: rgba(255,0,0,.3);
+    } */
+    .item img{
+      display: block;
+      width: 100%;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+    <div class="item">
+      <img src="http://cimg.pcstore.com.tw/cprd/C1151769810_big.jpg?pimg=static&P=1534573072" alt="">
+    </div>
+  </div>
+
+
+<script src="bodyScrollLock.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="easing.js"></script>
+<script src="ddsort.js"></script>
+<script>
+  //🍋 Apply -webkit-overflow-scrolling in Every TouchEnd
+
+  
+ 
+  (function(){
+    var obj = {
+    wrap: '.wrap', // 空間 *
+    target: '.item', // 可以被拖曳的物件 *
+    delay: 400, // 延遲多久才觸發事件 
+    // cloneStyle: {
+
+    // },
+    // floatStyle: {
+
+    // },
+    };
+
+    // init apply
+    myDragSort(obj);
+
+
+    function myDragSort(params) {
+      try {
+        if(!params.wrap || !params.target) {
+          console.log('params error=>',params);
+        }
+        // 可以被拖曳物件
+        var dragItems = params.target;
+        var $dragItems = $(params.target);
+        // 要移動的滾輪物件
+        var scrollItem = params.wrap;
+        var $scrollItem = $(params.wrap);
+        // 延遲時間(毫秒)
+        var delayTime = params.delay || 0;
+
+        // 複製一個假的item
+        var cloneItem = {
+          styles:{
+            'background-color': '#a00',
+          },
+          className: 'fakeItem',
+          clone: '',
+        }
+        // cloneItem.styles = params.cloneStyle ? params.cloneStyle : cloneItem.styles;
+        var dragStyle = {
+          'position': 'fixed', // fixed absolute
+          'webkitTransform': 'rotate(3deg)',
+          'mozTransform': 'rotate(3eg',
+          'msTransform': 'rotate(3eg)',
+          'transform': 'rotate(3deg)',
+          'z-index': '2',
+        }
+        
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+
+        // ios 可能會底部距離，需要加距離才能至底
+        var distances= $('body').height() - $(window).height();
+        if(distances !=0){
+          // console.log('!0')
+          $scrollItem.css({
+            'padding-bottom': distances, 
+          })
+        } 
+
+        
+        // 碰觸開始時間
+        var startTime = 0;
+        // 紀錄起始點
+        var startPosition = { x : 0, y : 0 };
+        // 現在目前碰觸位置紀錄
+        var currentPosition = { x: 0, y: 0 };
+        // 移動前一個點
+        var prePosition = { x : 0, y : 0 };
+        // 拖曳狀態
+        var dragging = false;
+        // 是否有複製假的Item
+        var hasClone = false;
+        // 暫存 item 參數
+        var itemObject = {
+          $this: '',  // this
+          styles: '', // 樣式
+        };
+        // requestAnimationFrame
+        var renderAnimation;
+        var animationTime = 0;
+
+        // 暫存目前scrollTop
+        var scrollTopDis = 0;
+
+
+        // item 總數
+        var itemSum = $scrollItem.find(dragItems).length;
+
+
+
+        // 1. Get a target element that you want to persist scrolling for (such as a modal/lightbox/flyout/nav). 
+        const targetElement = document.querySelector(scrollItem);
+        
+        
+        // 2. ...in some event handler after showing the target element...disable body scroll
+        bodyScrollLock.disableBodyScroll(targetElement);
+        // bodyScrollLock.disableBodyScroll(targetElementBody);
+          
+        // 3. ...in some event handler after hiding the target element...
+        // bodyScrollLock.enableBodyScroll(targetElement);
+          
+        // 4. Useful if we have called disableBodyScroll for multiple target elements,
+        // and we just want a kill-switch to undo all that.
+        // bodyScrollLock.clearAllBodyScrollLocks();
+
+        
+        var touchTimeout = '';
+        var scrollInterval = '';
+
+        var imageTouch = function(e){ e.preventDefault(); }
+
+
+        var touchStart = function(e){
+          // stop animate
+          if(iOS) $scrollItem.stop(false, false);
+          $(dragItems + ' > img').on('contextmenu', imageTouch);
+          
+          var e = e || event;
+          // 桌機
+          var pageX = e.pageX;
+          var pageY = e.pageY;
+          // 移動端
+          var targetTouches = e.originalEvent.targetTouches;
+          if (e.type == 'touchstart' && targetTouches) {
+              pageX = targetTouches[0].pageX;
+              pageY = targetTouches[0].pageY;
+          }
+          // 開始碰觸紀錄起始點
+          startPosition = { x: pageX, y: pageY };
+          // 記錄時間
+          startTime = new Date().getTime();
+          // 將this暫存
+          itemObject.$this = $(this);
+          // 取出被選取的樣式
+          itemObject.styles = {
+            height: itemObject.$this.outerHeight(),
+            width: itemObject.$this.outerWidth(),
+          }
+          // 複製被點到的Item，並且把內容清除
+          cloneItem.clone = itemObject.$this.clone()
+            .css(cloneItem.styles).css({
+              left: pageX + itemObject.styles.height/2,
+              top: pageY + itemObject.styles.width/2,
+            })
+            .empty();
+          hasClone = true;
+
+          // 延遲時間到，沒被清除的話，把item drag
+          touchTimeout = setTimeout(function() {
+            // console.log('delayTime arrives');
+            itemObject.$this.before(cloneItem.clone.addClass(cloneItem.className)) // 插入假的item
+              .css(dragStyle) // 增加drag style
+              .css(itemObject.styles) // 原本 item style
+              .appendTo(itemObject.$this.parent()); // 放到最後一個
+            hasClone = false;
+            dragging = true;
+
+            itemObject.$this.css({
+              left: startPosition.x - itemObject.styles.width/2,
+              top: startPosition.y - itemObject.styles.height/2,
+            });
+            // $scrollItem.addClass('noTouch');
+
+          }, delayTime); 
+
+          // 註冊move事件
+          $dragItems.on('touchmove', touchMove);
+          $dragItems.on('touchend', touchEnd);
+        }
+
+
+        var touchMove = function(e){
+          var e = e || event;
+          // 桌機
+          var pageX = e.pageX;
+          var pageY = e.pageY;
+          // 移動端
+          var targetTouches = e.originalEvent.targetTouches;
+          if (e.type == 'touchmove' && targetTouches) {
+            pageX = targetTouches[0].pageX;
+            pageY = targetTouches[0].pageY;
+          }
+          // 現在目前碰觸位置紀錄
+          currentPosition = { x: pageX, y: pageY };
+          // console.log(currentPosition)
+
+          var currentScroll = $scrollItem.scrollTop();
+          scrollTopDis = currentScroll;
+
+          // 防止表單功能失效
+          var tagName = e.target.tagName.toLowerCase();
+          if (tagName == 'input' || tagName == 'textarea' || tagName == 'select' ||
+              tagName == 'a' || $(e.target).prop('contenteditable') == 'true') return;
+          if (new Date().getTime() - startTime < delayTime) {
+            // 小於延遲時間
+            dragging = false;
+            clearTimeout(touchTimeout);
+            return;
+          }else{
+            // 大於延遲時間，已經移動scroll,又不是dragging
+            if( Math.abs(startPosition.y - currentPosition.y) > 20 && !dragging ){
+              // console.log('正在scrolling');
+              clearTimeout(touchTimeout);
+              return;
+            }
+          }
+
+          dragging = true;
+          // $scrollItem.addClass('noTouch');
+
+          // 有複製物件動作
+          if(hasClone){
+            itemObject.$this.before(cloneItem.clone.addClass(cloneItem.className)) // 插入假的item
+              .css(dragStyle) // 增加drag style
+              .css(itemObject.styles) // 原本 item style
+              .appendTo(itemObject.$this.parent()); // 放到最後一個
+            hasClone = false;
+          }
+
+          itemObject.$this.css({
+            left: currentPosition.x - itemObject.styles.width/2,
+            top: currentPosition.y - itemObject.styles.height/2,
+          });
+
+          
+          // 正在被拖曳物件動畫
+          var render = function(t){
+            var _time = t - animationTime;
+            motion(_time);
+            animationTime = t;
+          }
+          var motion = function(offset){
+            if(Math.round(currentPosition.y) === startPosition.y) return;
+            itemObject.$this.css({
+              left: currentPosition.x - itemObject.styles.width/2,
+              top: currentPosition.y - itemObject.styles.height/2,
+            });
+            // 視窗移動的距離
+            var disY = (currentPosition.y - startPosition.y); // <0 滑到到視窗上面，>0滑到視窗下面
+            var disX = (currentPosition.x - startPosition.x); // <0 滑到視窗左邊，>0滑到視窗右邊
+            // console.log({ disX, disY })
+            // console.log(currentPosition)
+            // console.log(itemObject.styles.height)
+
+
+            // method 1----start
+            // 視窗高
+            var windowHeight = $(window).height();
+            // 滾到底距離 $('.wrap').prop('scrollHeight');
+            // 視窗可移動距離
+            var maxWindowScroll = 0;
+            
+            if(disY > 0)  maxWindowScroll = startPosition.y; // 起始點距離top距離
+            else if(disY < 0 ) maxWindowScroll = $(window).height() - startPosition.y; // 起始點距離bottom距離
+            // 移動 wrap scroll ，要設定 wrap scrollTop 用
+            var moveScroll = '';
+            // 總 wrap scroll 最大值
+            var maxMoveScroll = $scrollItem.prop('scrollHeight') - $('body').height();
+            moveScroll = Math.abs($scrollItem.scrollTop()) / windowHeight * maxMoveScroll;
+
+            // method 1----end
+
+
+            // 觸碰點相對 container 的位置
+            var ContainerPosition = { x:0, y:0 };
+            // itemObject.styles.height // item 的高度
+            // itemObject.styles.width // item 的寬度
+
+            ContainerPosition = {
+              x: currentPosition.x,
+              y: currentPosition.y + $scrollItem.scrollTop(),
+            }
+            // console.log(ContainerPosition)
+
+            // 倍數 (一列之中最多幾個)
+            var multiple = Math.abs($(window).width() / itemObject.styles.width);
+            
+            // 最多有幾列
+            var maxCol = Math.ceil(itemSum/multiple);
+            var row = Math.floor(ContainerPosition.y / itemObject.styles.height) + 1 > maxCol ? 
+                    maxCol : Math.floor(ContainerPosition.y / itemObject.styles.height) + 1; // 第 n 排
+            var col = Math.floor(ContainerPosition.x / itemObject.styles.width) + 1 > multiple ? 
+                    multiple : Math.floor(ContainerPosition.x / itemObject.styles.width) + 1; // 第 n 列
+
+            var row_dis = (ContainerPosition.y / itemObject.styles.height).toFixed(1).slice(2);
+            var col_dis = (ContainerPosition.x / itemObject.styles.width).toFixed(1).slice(2);
+            // console.log({row_dis, col_dis})
+            
+
+            // item 總數 = itemSum
+          
+            var index = (row-1)*multiple + (col - 1);
+
+            // console.log({ 
+            //   row,
+            //   col,
+            //   index,
+            //   text: $(scrollItem + ' ' + dragItems).eq(index).attr('class')
+            // })
+
+            // 移動fake item
+
+
+            if(index === (itemSum - 1) || $(scrollItem + ' ' + dragItems).eq(index -1).hasClass('fakeItem') ) {
+              $(scrollItem + ' ' + dragItems).eq(index).after(cloneItem.clone);
+            }
+            else {
+              $(scrollItem + ' ' + dragItems).eq(index).before(cloneItem.clone);
+            }
+
+
+            // var calc = {
+            //   '視窗移動距離': disY,
+            //   '可移動距離': maxWindowScroll,
+            //   'wrap 移動 Scroll': maxWindowScroll,
+            //   'wrap 總 scroll': maxMoveScroll,
+            // }
+
+            // console.log(calc)
+            // console.log(moveScroll)
+            // console.log(currentPosition.y - prePosition.y)
+            // currentPosition.y - prePosition.y < 0... 看下面內容
+            // currentPosition.y - prePosition.y > 0... 看上面內容
+
+            // method 1----start
+            var curScrollTop = $scrollItem.scrollTop();
+            // 目前scroll 加上 移動距離
+            var scrollSum = (curScrollTop + disY);
+            if(disY > 0){
+              // 看下面內容
+              // console.log("往上面內容", disY)
+              // $scrollItem.scrollTop(moveScroll); // 滾輪一直動
+            }else if(disY < 0){
+              // 看上面內容
+              // console.log("往下面內容", (cur + disY))
+              // $scrollItem.scrollTop(moveScroll); // 滾輪一直動
+            }else if(disY === 0){
+              // 左右滑
+              // console.log('左右滑')
+            }
+            // 給予紀錄點
+            prePosition = currentPosition;
+            // method 1----end
+
+
+            // 置頂 至底 移動 method2 ---start
+            // issue wrap 不能用 css 屬性: -webkit-overflow-scrolling: touch;
+            if( currentPosition.y - itemObject.styles.height  < 0) {
+              // console.log('touch top');
+              scrollTopDis = currentScroll - 10; // 每次固定移動10
+            }else if(currentPosition.y + itemObject.styles.height  > windowHeight){
+              // console.log('touch bottom');
+              scrollTopDis = currentScroll + 10; // 每次固定移動10
+            }else{
+              // console.log('touch nothing');
+            }
+            $scrollItem.scrollTop(scrollTopDis);
+            // 置頂 至底 移動 method2 ---end
+
+          }
+          renderAnimation = requestAnimationFrame(render);
+        }
+
+        var touchEnd = function(e){
+          clearTimeout(touchTimeout);
+          clearInterval(scrollInterval);
+
+          $(dragItems + ' > img').unbind('contextmenu', imageTouch);
+          var e = e || event;
+
+          // console.log('touch time=>',new Date().getTime() - startTime)
+          var touchTime = new Date().getTime() - startTime;
+          if(touchTime < 300 && !dragging && iOS){
+            // currentPosition.y - prePosition.y < 0... 看下面內容
+            // currentPosition.y - prePosition.y > 0... 看上面內容
+            var touchDis = startPosition.y - currentPosition.y;
+            // console.log(touchDis)
+            // scroll animate
+            $scrollItem.stop(false,false).animate({
+              scrollTop: $scrollItem.scrollTop() + touchDis*5,
+            }, {
+              duration: touchTime*8,
+              easing: 'easeOutQuint', //  easeOutCirc easeOutQuad easeOutQuint
+            });
+          }
+          
+
+
+
+
+
+          // $scrollItem.removeClass('noTouch');
+          if(!hasClone) cloneItem.clone.before(itemObject.$this.removeAttr('style')).remove();
+          if($('body').scrollTop() !==0 ) $('body').scrollTop(0);
+          // 取消動畫
+          cancelAnimationFrame(renderAnimation);
+          hasClone = false;
+          // 取消註冊事件
+          $dragItems.off('touchmove touchend');
+        }
+        // 先註冊一次start事件
+        $dragItems.on('touchstart', touchStart);
+
+      } catch (error) {
+        console.log("error=>", error);
+      }
+    }
+
+  })();
+</script>  
+</body>
+</html>

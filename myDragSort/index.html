@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    iframe{
+      border: 0;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    body{
+      overflow: hidden;
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+    <iframe src="./myDragItem.html" frameborder="0"></iframe>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="main.js"></script>
+  <!-- <script src="bodyScrollLock.js"></script> -->
+  <script>
+
+
+   // 1. Get a target element that you want to persist scrolling for (such as a modal/lightbox/flyout/nav). 
+    // const targetElement = document.querySelector("*");
+
+    // 2. ...in some event handler after showing the target element...disable body scroll
+    // bodyScrollLock.disableBodyScroll(targetElement);
+
+    // 3. ...in some event handler after hiding the target element...
+    // bodyScrollLock.enableBodyScroll(targetElement);
+
+    // 4. Useful if we have called disableBodyScroll for multiple target elements,
+    // and we just want a kill-switch to undo all that.
+    // bodyScrollLock.clearAllBodyScrollLocks();
+
+    // $('body').on('scroll', function(evt) {
+    //   evt.preventDefault();
+    //   console.log(1111)
+    // });
+    
+  </script>
+</body>
+</html>

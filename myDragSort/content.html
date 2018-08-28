@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" id="myHtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="main.css">
+  <title>Document</title>
+</head>
+<body id="myBody">
+    <div class="fakeBody">
+      <ul id="wrap">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+      </ul>
+    </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="main.js"></script>
+  <script src="bodyScrollLock.js"></script>
+  <script src="ddsort.js"></script>
+  <script>
+    
+
+    // 1. Get a target element that you want to persist scrolling for (such as a modal/lightbox/flyout/nav). 
+    const targetElement = document.querySelector("body");
+
+    // 2. ...in some event handler after showing the target element...disable body scroll
+    // bodyScrollLock.disableBodyScroll(targetElement);
+
+    // 3. ...in some event handler after hiding the target element...
+    // bodyScrollLock.enableBodyScroll(targetElement);
+
+    // 4. Useful if we have called disableBodyScroll for multiple target elements,
+    // and we just want a kill-switch to undo all that.
+    // bodyScrollLock.clearAllBodyScrollLocks();
+
+    // $('body').on('scroll', function(evt) {
+    //   evt.preventDefault();
+    //   console.log(1111)
+    // });
+
+    
+
+    var draggingFunc = {
+      lock: function(evt){
+        evt.preventDefault();
+        evt.stopPropagation();
+      },
+      unLock: function(){
+        $(window).focus();
+      },
+    }
+
+    $( '#wrap' ).DDSort({
+      target: 'li',             //拖拽的目标元素，默认即'li'
+      floatStyle: {           //拖拽元素的样式，默认有一定的样式
+          'border': '1px solid #ccc',
+          'background-color': '#fff'
+      },
+      delay: 300,
+      useScroll: false,
+      down: function(){
+      console.log('down');
+      
+
+      // $('body').scrollLeft(-1);
+        // $('body').addClass('fixed');
+        // $('body').on('scroll',function(evt){
+        //   console.log(evt)
+        //   evt.preventDefault()
+        //   evt.stopPropagation()
+        //   return
+        // })
+
+      },
+      move: function(){
+        
+      // console.log('moving	');
+      // $('body').removeClass('fixed');
+      
+      // bodyScrollLock.disableBodyScroll(targetElement);
+      
+      // ---auto scrolling---
+      var $scrollBox = $('body');
+      var scrollMoveDistance = 10;
+      var proxBox = $(this).offset();
+      var position = { x: proxBox.left, y: proxBox.top };
+      var pordBoxHeight = $(this).outerHeight();
+      var screen = { h: $(window).height(), w: $(window).width() };
+      var boxBody = $scrollBox.offset().top;
+      var scroll = $scrollBox.scrollTop();
+      
+      if( pordBoxHeight + position.y > screen.h ) {
+        // touch bottom
+        var moving = pordBoxHeight + position.y - screen.h > scrollMoveDistance ? scrollMoveDistance : (pordBoxHeight + position.y - screen.h);
+        scroll += moving;
+        // $scrollBox.stop(false,true).animate({
+        // 	scrollTop: scroll,
+        // });
+        _animation = requestAnimationFrame(motion);
+      }else if(position.y < boxBody){
+        var moving = boxBody - position.y > scrollMoveDistance ? scrollMoveDistance : boxBody - position.y;
+        scroll -= moving;
+        // $scrollBox.stop(false,true).animate({
+        // 	scrollTop: scroll,
+        // });
+        _animation = requestAnimationFrame(motion);
+      }else{
+        
+      }
+
+      
+
+      function motion(){
+        console.log('scroll motion->', scroll)
+        $scrollBox.scrollTop(scroll);
+      }
+  },
+      up: function(){
+        // bodyScrollLock.clearAllBodyScrollLocks();
+        // $('body').removeClass('fixed');
+    //  	console.log('up');
+    //  	$('body').unbind('touchstart');
+        // $('body').unbind('touchmove', stop);
+        // $('body').unbind('touchend');
+        // bodyScrollLock.enableBodyScroll(targetElement);
+      }
+  });
+
+  
+  </script>
+</body>
+</html>
