@@ -9,3 +9,6 @@ https://iceice1030.github.io/mySlider/slider.html
 
 # 拖曳畫面 with jquery (demon)
 https://iceice1030.github.io/myDrag/myDrag.html
+
+# 拖曳item with jquery (demon)
+https://iceice1030.github.io/myDragSort/myDragItem.html
