@@ -53,10 +53,7 @@ body{
   border-radius: 5px;
   border: 3px solid #f5b43a;
   position: relative;
-}
-.panelContainer > .imgBox > img{
-  width: 100%;
-  vertical-align: middle;
+  background: rgba(255,255,255,.9);
 }
 .btnBox{
   text-align: center;
@@ -140,4 +137,49 @@ body{
   width: calc(100% - 50px);
   line-height: 50px;
   padding: 0 10px;
+}
+.winnerSumBox{
+  font-size: 0;
+}
+.winnerSumBox > div{
+  display: inline-block;
+  padding: 0 10px;
+  font-size: 14px;
+  vertical-align: middle;
+  height: 30px;
+  line-height: 30px;
+  min-width: 30px;
+}
+.winnerSumBox > .option{
+  cursor: pointer;
+  position: relative;
+  border: 1px solid #fff;
+  width: 30px;
+  height: 30px;
+}
+.winnerSumBox > .minus:active,
+.winnerSumBox > .plus:active{
+  transform: scale(.9);
+}
+.winnerSumBox > .minus:before,
+.winnerSumBox > .plus:before,
+.winnerSumBox > .plus:after{
+  content: '';
+  width: 50%;
+  height: 3px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background: #fff;
+}
+.winPlayerSum{
+  -moz-user-select: none;  /* for Firefox */ 
+  -webkit-user-select: none;   /* for Chrome */
+  user-select: none;
+}
+.winnerSumBox > .plus:after{
+  transform: rotate(90deg);
 }
