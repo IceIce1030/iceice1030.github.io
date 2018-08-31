@@ -1,0 +1,143 @@
+*{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+body{
+  font-size: 14px;
+  font-family: "微軟正黑體";
+  background-color: #E76345;
+  color: #fff;
+}
+.container{
+  width: 700px;
+  margin: 50px auto;
+}
+.lottoContainer{
+  min-height: 500px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,.4);
+}
+.lottoContainer:after{
+  content: '';
+  width: 0;
+  display: block;
+  clear: both;
+}
+.lottoMainPanel,
+.lottoWinners{
+  float: left;
+}
+.lottoMainPanel{
+  width: 65%;
+}
+.lottoWinners{
+  width: 35%;
+}
+.panelContainer{
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  text-align: center;
+}
+.title{
+  font-size: 20px;
+  padding: 20px 0;
+  text-align: center
+}
+.panelContainer >.imgBox{
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  border: 3px solid #f5b43a;
+  position: relative;
+}
+.panelContainer > .imgBox > img{
+  width: 100%;
+  vertical-align: middle;
+}
+.btnBox{
+  text-align: center;
+}
+.btnBox {
+  padding: 20px 0;
+}
+.btnBox > .statBtn{
+  display: inline-block;
+  background-color: #f29807;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 0px #A17020;
+}
+.btnBox > .statBtn:active{
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px #A17020;
+}
+.imgBox > .userName{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  padding: 20px;
+  background-color: rgba(0,0,0,.4);
+}
+.lottoWinners{
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgba(255,255,255,.2);
+}
+.lottoWinners > .title{
+  font-size: 16px;
+  text-align: center;
+  padding: 5px;
+  color: #f5b43a;
+  position: relative;
+}
+.lottoWinners > .title::before {
+  position: absolute;
+  content: '';
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: -webkit-linear-gradient(left, rgba(248,215,59,0), #f0d03a, rgba(248,215,59,0));
+  height: 1px;
+}
+.lottoWinners > .winnerLists{
+  padding: 0 15px 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.winnerLists > .item::after{
+  content: '';
+  width: 0;
+  display: block;
+  clear: both;
+}
+.item{
+  padding: 10px;
+}
+.item + .item{
+  border-top: 1px solid #f5b43a;
+}
+.item > div{
+  float: left;
+}
+.item > .imgBox{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #f5b43a;
+}
+.item > .imgBox > img{
+  width: 100%;
+  vertical-align: middle;
+}
+.item > .userName{
+  width: calc(100% - 50px);
+  line-height: 50px;
+  padding: 0 10px;
+}
