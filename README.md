@@ -13,4 +13,4 @@ https://iceice1030.github.io/myDragSort/myDragItem.html
 
 
 # lottery 抽獎遊戲 with jquery (demon)
-https://iceice1030.github.io/lottor/index.html
+https://iceice1030.github.io/lottery/index.html

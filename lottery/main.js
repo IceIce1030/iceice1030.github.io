@@ -36,7 +36,7 @@
   // 抽三個名額
   var winnerCount = 3;
   // 計時器
-  var lottoInterval = '';
+  var lotteryInterval = '';
   // delay時間
   var delay = 800;
   var btnTxt = {
@@ -56,17 +56,17 @@
       // 改變遊戲狀態
       gameStart = true;
       // 執行亂數顯示
-      lottoInterval = panelRandomRender();
+      lotteryInterval = panelRandomRender();
     }else if(gameStart && $(this).text() === btnTxt.stop ){
       // 停止計時器
-      clearInterval(lottoInterval);
+      clearInterval(lotteryInterval);
       var winsArr = [];
       // 抽獎
       lottery();
     }
     // 抽獎 function
     function lottery(){
-      clearInterval(lottoInterval);
+      clearInterval(lotteryInterval);
       var player = '';
       var _find = true;
       // 檢查是否重複中獎
@@ -108,7 +108,7 @@
       if(winsArr.length !== winnerCount) {
         // 停頓顯示中講者
         setTimeout(() => {
-          lottoInterval = panelRandomRender();
+          lotteryInterval = panelRandomRender();
           setTimeout(lottery, delay);
         }, delay);
       }
