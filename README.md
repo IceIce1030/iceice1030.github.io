@@ -1,5 +1,3 @@
-
-
 # 煙火動畫 (demon)
 https://iceice1030.github.io/firework-canvas/index.html
 
@@ -12,3 +10,7 @@ https://iceice1030.github.io/myDrag/myDrag.html
 
 # 拖曳item with jquery (demon)
 https://iceice1030.github.io/myDragSort/myDragItem.html
+
+
+# lottery 抽獎遊戲 with jquery (demon)
+https://iceice1030.github.io/lottor/index.html
