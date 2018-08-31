@@ -89,12 +89,14 @@
       gameStart = true;
       // 執行亂數顯示
       lotteryInterval = panelRandomRender();
+      $(this).toggleClass('start');
     }else if(gameStart && $(this).text() === btnTxt.stop ){
       // 停止計時器
       clearInterval(lotteryInterval);
       var winsArr = [];
       // 抽獎
       lottery();
+      $(this).toggleClass('start');
     }
     // 抽獎 function
     function lottery(){
