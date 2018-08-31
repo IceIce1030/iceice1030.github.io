@@ -85,7 +85,6 @@
         }
       });
 
-
       $btn.text(`${btnTxt.pick}(剩餘${winnerCount - winsArr.length})`);
       // 加入中獎名單
       var winnerItem = `
@@ -141,9 +140,4 @@
         $panel.find('.imgBox > .userName').text(player.name);
     }
   });
-
-
-  
-
-
 })();
