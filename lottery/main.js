@@ -1,4 +1,5 @@
-;(function(){
+;
+(function () {
   // fetch玩家資料
   var getPlayers = () => {
     var res = '';
@@ -8,10 +9,10 @@
       data: {},
       dataType: 'text',
       async: false,
-      error: function(e) {
+      error: function (e) {
         console.log('ajax request error!=>', e);
       },
-      success: function(response) {
+      success: function (response) {
         try {
           res = JSON.parse(response);
         } catch (error) {
@@ -75,12 +76,12 @@
   // 隨機選出一位玩家
   var randomPlayer = players => {
     var x = players.length;
-    return players[Math.floor(Math.random()*x)];
+    return players[Math.floor(Math.random() * x)];
   }
 
   // 按鈕事件
-  $btn.on('click', function() {
-    if(!gameStart && $(this).text() === btnTxt.start){
+  $btn.on('click', function () {
+    if (!gameStart && $(this).text() === btnTxt.start) {
       // 改變btn文字
       $(this).text(`${btnTxt.stop}`);
       // 清空中獎名單
@@ -90,7 +91,7 @@
       // 執行亂數顯示
       lotteryInterval = panelRandomRender();
       $(this).toggleClass('start');
-    }else if(gameStart && $(this).text() === btnTxt.stop ){
+    } else if (gameStart && $(this).text() === btnTxt.stop) {
       // 停止計時器
       clearInterval(lotteryInterval);
       var winsArr = [];
@@ -99,22 +100,22 @@
       $(this).toggleClass('start');
     }
     // 抽獎 function
-    function lottery(){
+    function lottery() {
       clearInterval(lotteryInterval);
       var player = '';
       var _find = true;
       // 檢查是否重複中獎
-      while(_find) {
+      while (_find) {
         player = randomPlayer(players);
-        _find = winsArr.find( win =>{
+        _find = winsArr.find(win => {
           return win === player.id;
         });
       }
       winsArr.push(player.id);
 
       // 刪除中獎者資料
-      players.find( (_player, index) =>{
-        if(_player.id === player.id){
+      players.find((_player, index) => {
+        if (_player.id === player.id) {
           players.slice(index, 1);
         }
       });
@@ -138,14 +139,13 @@
       panelRender(player);
       $('.winnerLists').prepend(winnerItem);
       // 尚未抽完
-      if(winsArr.length !== winnerCount) {
+      if (winsArr.length !== winnerCount) {
         // 停頓顯示中講者
         setTimeout(() => {
           lotteryInterval = panelRandomRender();
           setTimeout(lottery, delay);
         }, delay);
-      }
-      else { // 抽完獎
+      } else { // 抽完獎
         gameStart = false;
         $btn.text(`${btnTxt.start}`);
         // 重新取得資料
@@ -154,36 +154,36 @@
     }
 
     // 執行亂數顯示
-    function panelRandomRender(){
+    function panelRandomRender() {
       var speed = 100;
-      return  setInterval(()=>{
+      return setInterval(() => {
         var player = randomPlayer(players);
         panelRender(player);
       }, speed);
     }
 
     // panelRender
-    function panelRender(player){
+    function panelRender(player) {
       var $panel = $('.panelContainer');
-        $panel.find('.imgBox').css({
-          'background': `url(${player.img})`,
-          'background-size': 'contain',
-          'background-repeat': 'no-repeat',
-          'background-position': 'center',
-        });
-        $panel.find('.imgBox > .userName').text(player.name);
+      $panel.find('.imgBox').css({
+        'background': `url(${player.img})`,
+        'background-size': 'contain',
+        'background-repeat': 'no-repeat',
+        'background-position': 'center',
+      });
+      $panel.find('.imgBox > .userName').text(player.name);
     }
   });
 
 
   // 點擊加減中獎人數
-  $option.on('click', function(){
-    if($(this).hasClass('minus')){
+  $option.on('click', function () {
+    if ($(this).hasClass('minus')) {
       // minus event
-      winnerCount = winnerCount-- <= 1 ? 1: winnerCount--;
-    }else if($(this).hasClass('plus')){
+      winnerCount = winnerCount-- <= 1 ? 1 : winnerCount--;
+    } else if ($(this).hasClass('plus')) {
       // plus event
-      winnerCount = winnerCount++ >= playersSum ? playersSum: winnerCount++;
+      winnerCount = winnerCount++ >= playersSum ? playersSum : winnerCount++;
     }
     $winPlayerSum.text(winnerCount);
   });

@@ -1,66 +1,79 @@
-*{
+* {
   padding: 0;
   margin: 0;
   list-style: none;
   box-sizing: border-box;
 }
-body{
+
+body {
   font-size: 14px;
   font-family: "微軟正黑體";
   background-color: #E76345;
   color: #fff;
 }
-.container{
+
+.container {
   width: 700px;
   margin: 50px auto;
 }
-.lottoContainer{
+
+.lottoContainer {
   min-height: 500px;
   padding: 20px;
   border-radius: 5px;
-  background-color: rgba(0,0,0,.4);
+  background-color: rgba(0, 0, 0, .4);
 }
-.lottoContainer:after{
+
+.lottoContainer:after {
   content: '';
   width: 0;
   display: block;
   clear: both;
 }
+
 .lottoMainPanel,
-.lottoWinners{
+.lottoWinners {
   float: left;
 }
-.lottoMainPanel{
+
+.lottoMainPanel {
   width: 65%;
 }
-.lottoWinners{
+
+.lottoWinners {
   width: 35%;
 }
-.panelContainer{
+
+.panelContainer {
   width: 200px;
   margin: auto;
   text-align: center;
 }
-.title{
+
+.title {
   font-size: 20px;
   padding: 20px 0;
   text-align: center
 }
-.panelContainer >.imgBox{
+
+.panelContainer>.imgBox {
   width: 100%;
   height: 200px;
   border-radius: 5px;
   border: 3px solid #f5b43a;
   position: relative;
-  background: rgba(255,255,255,.9);
+  background: rgba(255, 255, 255, .9);
 }
-.btnBox{
+
+.btnBox {
   text-align: center;
 }
+
 .btnBox {
   padding: 20px 0;
 }
-.btnBox > .statBtn{
+
+.btnBox>.statBtn {
   display: inline-block;
   background-color: #f29807;
   border: 1px solid #f29807;
@@ -69,82 +82,97 @@ body{
   border-radius: 5px;
   box-shadow: 3px 3px 0px #A17020;
 }
-.btnBox > .statBtn.start{
+
+.btnBox>.statBtn.start {
   transform: translate(3px, 3px);
   box-shadow: 0px 0px 0px #A17020;
   background-color: transparent;
   color: #f29807;
 
 }
-.imgBox > .userName{
+
+.imgBox>.userName {
   position: absolute;
   left: 0;
   width: 100%;
   bottom: 0;
   padding: 20px;
-  background-color: rgba(0,0,0,.4);
+  background-color: rgba(0, 0, 0, .4);
 }
-.lottoWinners{
+
+.lottoWinners {
   border-radius: 5px;
   padding: 10px;
-  background-color: rgba(255,255,255,.2);
+  background-color: rgba(255, 255, 255, .2);
 }
-.lottoWinners > .title{
+
+.lottoWinners>.title {
   font-size: 16px;
   text-align: center;
   padding: 5px;
   color: #f5b43a;
   position: relative;
 }
-.lottoWinners > .title::before {
+
+.lottoWinners>.title::before {
   position: absolute;
   content: '';
   top: 100%;
   left: 0;
   width: 100%;
-  background: -webkit-linear-gradient(left, rgba(248,215,59,0), #f0d03a, rgba(248,215,59,0));
+  background: -webkit-linear-gradient(left, rgba(248, 215, 59, 0), #f0d03a, rgba(248, 215, 59, 0));
   height: 1px;
 }
-.lottoWinners > .winnerLists{
+
+.lottoWinners>.winnerLists {
   padding: 0 15px 10px;
   max-height: 300px;
   overflow-y: auto;
 }
-.winnerLists > .item::after{
+
+.winnerLists>.item::after {
   content: '';
   width: 0;
   display: block;
   clear: both;
 }
-.item{
+
+.item {
   padding: 10px;
 }
-.item + .item{
+
+.item+.item {
   border-top: 1px solid #f5b43a;
 }
-.item > div{
+
+.item>div {
   float: left;
 }
-.item > .imgBox{
+
+.item>.imgBox {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid #f5b43a;
 }
-.item > .imgBox > img{
+
+.item>.imgBox>img {
   width: 100%;
   vertical-align: middle;
 }
-.item > .userName{
+
+.item>.userName {
   width: calc(100% - 50px);
   line-height: 50px;
   padding: 0 10px;
 }
-.winnerSumBox{
+
+.winnerSumBox {
   font-size: 0;
 }
-.winnerSumBox > div{
+
+.winnerSumBox>div {
   display: inline-block;
   padding: 0 10px;
   font-size: 14px;
@@ -153,20 +181,23 @@ body{
   line-height: 30px;
   min-width: 30px;
 }
-.winnerSumBox > .option{
+
+.winnerSumBox>.option {
   cursor: pointer;
   position: relative;
   border: 1px solid #fff;
   width: 30px;
   height: 30px;
 }
-.winnerSumBox > .minus:active,
-.winnerSumBox > .plus:active{
+
+.winnerSumBox>.minus:active,
+.winnerSumBox>.plus:active {
   transform: scale(.9);
 }
-.winnerSumBox > .minus:before,
-.winnerSumBox > .plus:before,
-.winnerSumBox > .plus:after{
+
+.winnerSumBox>.minus:before,
+.winnerSumBox>.plus:before,
+.winnerSumBox>.plus:after {
   content: '';
   width: 50%;
   height: 3px;
@@ -178,24 +209,31 @@ body{
   margin: auto;
   background: #fff;
 }
-.winPlayerSum{
-  -moz-user-select: none;  /* for Firefox */ 
-  -webkit-user-select: none;   /* for Chrome */
+
+.winPlayerSum {
+  -moz-user-select: none;
+  /* for Firefox */
+  -webkit-user-select: none;
+  /* for Chrome */
   user-select: none;
 }
-.winnerSumBox > .plus:after{
+
+.winnerSumBox>.plus:after {
   transform: rotate(90deg);
 }
+
 @media only screen and (max-width: 415px) {
   .container {
     width: 100%;
     margin: 0;
   }
+
   .lottoMainPanel,
-  .lottoWinners{
+  .lottoWinners {
     width: 100%;
   }
-  .lottoWinners{
+
+  .lottoWinners {
     margin-top: 20px;
   }
 }
