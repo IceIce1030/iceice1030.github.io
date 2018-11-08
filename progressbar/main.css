@@ -1,0 +1,105 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.loadingMask {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .1);
+}
+
+.testBtn {
+  position: fixed;
+  bottom: 20%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+button {
+  display: inline-block;
+  padding: 5px 10px;
+}
+
+button+button {
+  margin-left: 10px;
+}
+
+.progressBarContainer,
+.progressBarContainer * {
+  box-sizing: border-box;
+}
+
+.progressBarContainer {
+  background-color: #F5C26C;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.progressBarContainer:after {
+  content: '';
+  height: 0;
+  display: block;
+  clear: both;
+}
+
+.progressBarContainer,
+.progressBarContainer>.progressBarText,
+.progressBarContainer>.progressBarRate>.barContainer,
+.progressBarContainer>.progressBarRate>.barContainer>.bar {
+  border-radius: 5px;
+}
+
+.progressBarContainer>.progressBarText {
+  float: left;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+  background-color: #ECA84B;
+}
+
+.progressBarContainer>.progressBarText>.num {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.progressBarContainer>.progressBarRate {
+  float: left;
+  height: 50px;
+  line-height: 80px;
+  padding: 0 5px;
+  width: calc(100% - 50px);
+  position: relative;
+}
+
+.barContainer>img {
+  width: 35px;
+  height: 31px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.progressBarContainer>.progressBarRate>.barContainer {
+  height: 10px;
+  width: 100%;
+  display: inline-block;
+  background-color: #ECA84B;
+}
+
+.progressBarContainer>.progressBarRate>.barContainer>.bar {
+  height: 100%;
+  width: 0;
+  background-color: #fff;
+}

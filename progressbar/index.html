@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <div class="loadingMask">
+    <div class="progressBarContainer">
+      <div class="progressBarText">
+        <span class="num"></span>%
+      </div>
+      <div class="progressBarRate">
+        <div class="barContainer">
+          <img class="catIcon" src="Loading_icon_cat.png" />
+          <div class="bar"></div>
+        </div>
+      </div>
+    </div>
+    <div class="testBtn">
+      <button>0</button>
+      <button>10</button>
+      <button>50</button>
+      <button>100</button>
+    </div>
+
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    var progressBarObj = {
+      target: '.progressBarContainer',
+      duration: 500,
+      width: '600px',
+    }
+    var progressBarFun = new progressBar(progressBarObj);
+
+
+    /*
+      params.target 物件
+      params.duration  動畫時間
+      params.width 寬度
+    */
+    function progressBar(params) {
+      this.target = params.target || '';
+      this.duration = params.duration || 300;
+      var progressBarWidth = params.width || '100%';
+      var _this = this;
+      var $rateTxt = $(this.target).find('.num');
+      var $bar = $(this.target).find('.bar');
+      var $img = $(this.target).find('.catIcon');
+      $(this.target).css({
+        width: progressBarWidth
+      });
+      var barWidth = $(this.target).find('.barContainer').width();
+      var imgWidth = $img.width();
+      var currentRate = 0;
+      this.animateStatue = false;
+      var timeInterval = '';
+      this.init = function () {
+        $bar.width(0);
+        $rateTxt.text(0);
+        $img.css({
+          left: 0
+        });
+      }
+      // 進度bar動畫
+      this.progressBarRateSet = function (rate) {
+        if (isNaN(rate) || currentRate == rate) return;
+        if (_this.animateStatue) {
+          _this.animateStatue = false;
+          // 如果正在執行動畫
+          $img.stop(true, false);
+          $bar.stop(true, false);
+          clearInterval(timeInterval);
+          currentRate = parseInt($rateTxt.text());
+        }
+        _this.animateStatue = true;
+        _this.textAnimate(rate);
+        _this.imgAnimate(rate);
+        $bar.animate({
+          width: rate + '%',
+        }, {
+          duration: _this.duration
+        });
+      }
+
+      // 文字動畫
+      this.textAnimate = function (rate) {
+        if (currentRate === rate) return;
+        var rateRange = rate - currentRate;
+        var change = rateRange > 0 ? 1 : -1;
+        var _time = Math.round(this.duration / Math.abs(rateRange));
+        timeInterval = setInterval(function () {
+          $rateTxt.text(currentRate + change);
+          currentRate = currentRate + change;
+          if (currentRate === rate) clearInterval(timeInterval);
+        }, _time);
+      }
+      // 圖片動畫
+      this.imgAnimate = function (rate) {
+        var _move = (rate / 100) * barWidth - (imgWidth / 2);
+        if (_move > barWidth - imgWidth) _move = barWidth - imgWidth;
+        else if (_move < 0) _move = 0;
+        $img.animate({
+          left: _move,
+        }, {
+          duration: _this.duration
+        });
+      }
+      // 初始話
+      this.init();
+    }
+
+
+    $('button').on('click', function () {
+      var _vale = parseInt($(this).text());
+      progressBarFun.progressBarRateSet(_vale);
+    });
+  </script>
+</body>
+
+</html>

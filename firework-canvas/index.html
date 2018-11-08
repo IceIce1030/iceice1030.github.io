@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Firework</title>
   <style>
-    *{
+    * {
       padding: 0;
       margin: 0;
     }
+
     #canvas {
       display: block;
       width: 800px;
@@ -18,163 +20,173 @@
       border: 1px solid;
       background-color: #000;
     }
-    
   </style>
 </head>
+
 <body>
   <canvas id="canvas" width="800" height="600"></canvas>
-<script>
-  let canvas = document.querySelector("#canvas")
-  let ctx = canvas.getContext('2d')
-  let time = 0;
-  let balls = []
-  let fireworks = []
-  let mouse = { x: 400, y: 300 } // 滑鼠座標
-  const concentricColor = "#d00"
-  const concentricLineColor ="#d00"
+  <script>
+    let canvas = document.querySelector("#canvas")
+    let ctx = canvas.getContext('2d')
+    let time = 0;
+    let balls = []
+    let fireworks = []
+    let mouse = {
+      x: 400,
+      y: 300
+    } // 滑鼠座標
+    const concentricColor = "#d00"
+    const concentricLineColor = "#d00"
 
 
-  function motion(offset) {
-    // // x 座標 ＝ Ｘ原始座標＋速度
-    
-    // 發射球移動動畫
-    balls.forEach((ball, index) => {
-      // a = 鄰邊, b = 對邊, c = 斜邊 
-      // sin = b/c => 求y軸
-      // cos = c/a => 求x軸
-      ball.position.x += ball.velocity * Math.cos(ball.angle) / 1000 * offset //    / 1000 * offset => 減速
-      ball.position.y += ball.velocity * Math.sin(ball.angle) / 1000 * offset
+    function motion(offset) {
+      // // x 座標 ＝ Ｘ原始座標＋速度
 
-      if( parseInt(ball.position.y) < ball.endPosition.y ) ball.active = false
+      // 發射球移動動畫
+      balls.forEach((ball, index) => {
+        // a = 鄰邊, b = 對邊, c = 斜邊 
+        // sin = b/c => 求y軸
+        // cos = c/a => 求x軸
+        ball.position.x += ball.velocity * Math.cos(ball.angle) / 1000 * offset //    / 1000 * offset => 減速
+        ball.position.y += ball.velocity * Math.sin(ball.angle) / 1000 * offset
 
-      if(ball.active){
-        ctx.fillStyle = "#fff"
-        ctx.beginPath()
-        ctx.arc(ball.position.x, ball.position.y, ball.radius, 0 ,Math.PI * 2)
-        // arc => (x座標, y座標, 半徑, 幾度開始畫, 要畫幾度) 弧度請用 Math.PI  不要用 0 - 360
-        ctx.fill()
-      } else {
-        console.log("delete ball's lifeCycle is end")
-        
-        // ball 動畫結束 就把動畫刪掉
-        delete balls.splice(index, 1)
-        
-        // 執行 煙火動畫
-        console.log("start firework")
+        if (parseInt(ball.position.y) < ball.endPosition.y) ball.active = false
 
-        let _r = parseInt(Math.random() * 256)
-        let _g = parseInt(Math.random() * 256)
-        let _b = parseInt(Math.random() * 256)
-        let _a = (Math.random() + .5) > 1 ? 1 : (Math.random() + .5);
-        
-        let color = `rgba(${_r},${_g},${_b},${_a})`
-        // firework
-        for (let i = 0; i < 100; i++) {
-          let angle = Math.random() * Math.PI * 2;
-          fireworks.push({
-            life: 100, // 可以做100次，更新完就消失
-            position: {
-              x: ball.position.x,
-              y: ball.position.y,
-            },
-            velocity: {
-              x: 0, // 速度一開始都是 0，主要靠加速度
-              y: 0,
-            },
-            acceleration: {
-              x: Math.cos(angle) * (Math.random() * 5 + 15), // 取得 x 軸，乘以隨機的速度
-              y: Math.sin(angle) * (Math.random() * 5 + 15), // 取得 y 軸，乘以隨機的速度
-            },
-            radius: 2, // 半徑
-            color: color, // 顏色
-          });
+        if (ball.active) {
+          ctx.fillStyle = "#fff"
+          ctx.beginPath()
+          ctx.arc(ball.position.x, ball.position.y, ball.radius, 0, Math.PI * 2)
+          // arc => (x座標, y座標, 半徑, 幾度開始畫, 要畫幾度) 弧度請用 Math.PI  不要用 0 - 360
+          ctx.fill()
+        } else {
+          console.log("delete ball's lifeCycle is end")
+
+          // ball 動畫結束 就把動畫刪掉
+          delete balls.splice(index, 1)
+
+          // 執行 煙火動畫
+          console.log("start firework")
+
+          let _r = parseInt(Math.random() * 256)
+          let _g = parseInt(Math.random() * 256)
+          let _b = parseInt(Math.random() * 256)
+          let _a = (Math.random() + .5) > 1 ? 1 : (Math.random() + .5);
+
+          let color = `rgba(${_r},${_g},${_b},${_a})`
+          // firework
+          for (let i = 0; i < 100; i++) {
+            let angle = Math.random() * Math.PI * 2;
+            fireworks.push({
+              life: 100, // 可以做100次，更新完就消失
+              position: {
+                x: ball.position.x,
+                y: ball.position.y,
+              },
+              velocity: {
+                x: 0, // 速度一開始都是 0，主要靠加速度
+                y: 0,
+              },
+              acceleration: {
+                x: Math.cos(angle) * (Math.random() * 5 + 15), // 取得 x 軸，乘以隨機的速度
+                y: Math.sin(angle) * (Math.random() * 5 + 15), // 取得 y 軸，乘以隨機的速度
+              },
+              radius: 2, // 半徑
+              color: color, // 顏色
+            });
+          }
         }
+      })
+
+
+      fireworks.forEach(function (fire, index) {
+        fire.life--;
+        if (fire.life) {
+          fire.velocity.x += fire.acceleration.x;
+          fire.position.x += (fire.velocity.x / 1000) * offset;
+          fire.acceleration.y += 1;
+          fire.velocity.y += fire.acceleration.y;
+          fire.position.y += (fire.velocity.y / 1000) * offset;
+          ctx.fillStyle = fire.color;
+          ctx.beginPath();
+          ctx.arc(fire.position.x, fire.position.y, fire.radius, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          fireworks.splice(index, 1);
+        }
+      })
+    }
+
+
+    function render(_time) {
+      ctx.fillStyle = "#000"
+      // 做動畫前，清除畫面
+      ctx.fillRect(0, 0, 800, 600)
+      ctx.save() // 暫存畫面，儲存瞄準
+
+      // 準心位置
+      ctx.translate(mouse.x, mouse.y);
+      ctx.beginPath()
+      // 瞄準準心
+      for (let i = 0; i < 4; i++) {
+        ctx.moveTo(5, 0)
+        ctx.lineTo(15, 0)
+        ctx.rotate(-Math.PI / 2)
+      }
+
+      ctx.strokeStyle = concentricColor
+      ctx.lineWidth = 1
+      ctx.stroke()
+      ctx.restore() // 回復準心狀態
+
+      motion(_time - time)
+      time = _time
+
+      // 畫直線
+      ctx.moveTo(canvas.width / 2, canvas.height);
+      ctx.lineTo(mouse.x, mouse.y)
+      ctx.strokeStyle = concentricLineColor
+      ctx.stroke()
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render)
+
+    canvas.addEventListener('mousemove', function (e) {
+      // 每次一棟都要記錄x  y 座標
+      mouse = {
+        x: e.offsetX,
+        y: e.offsetY
       }
     })
 
-
-    fireworks.forEach(function(fire, index) {
-      fire.life--;
-      if (fire.life) {
-        fire.velocity.x += fire.acceleration.x;
-        fire.position.x += (fire.velocity.x / 1000) * offset;
-        fire.acceleration.y += 1;
-        fire.velocity.y += fire.acceleration.y;
-        fire.position.y += (fire.velocity.y / 1000) * offset;
-        ctx.fillStyle = fire.color;
-        ctx.beginPath();
-        ctx.arc(fire.position.x, fire.position.y, fire.radius, 0, Math.PI * 2);
-        ctx.fill();
-      } else {
-        fireworks.splice(index, 1);
+    canvas.addEventListener('click', function (e) {
+      // 記錄 x y 座標
+      let endMouse = {
+        x: e.offsetX,
+        y: e.offsetY
       }
+
+      let mx = endMouse.x - canvas.width / 2 // 鄰邊 - 中心點
+      let my = endMouse.y - canvas.height // 對邊 - 中心點
+      // 斜邊 = Math.sqrt(mx*mx + my+my)
+
+      let ball = {
+        active: true, // 處理生命週期
+        angle: Math.atan(my / mx), // 取得角度
+        position: {
+          x: canvas.width / 2,
+          y: canvas.height,
+        },
+        velocity: 400, // 速度
+        radius: 3, // 半徑
+        endPosition: endMouse, // 球移動最後位置，也是爆炸位置
+      }
+
+      if (mx < 0) ball.velocity *= -1 // 處理象限問題，如果 x 位置在中心點的左邊
+
+      balls.push(ball)
+
     })
-  }
-
-
-  function render(_time) {
-    ctx.fillStyle = "#000"
-    // 做動畫前，清除畫面
-    ctx.fillRect(0, 0, 800, 600)
-    ctx.save() // 暫存畫面，儲存瞄準
-
-    // 準心位置
-    ctx.translate(mouse.x, mouse.y);
-    ctx.beginPath()
-    // 瞄準準心
-    for (let i = 0; i < 4; i++) {
-      ctx.moveTo(5, 0)
-      ctx.lineTo(15, 0)
-      ctx.rotate(-Math.PI/2)
-    }
-    
-    ctx.strokeStyle = concentricColor
-    ctx.lineWidth = 1
-    ctx.stroke()
-    ctx.restore() // 回復準心狀態
-    
-    motion(_time - time)
-    time = _time
-
-    // 畫直線
-    ctx.moveTo(canvas.width / 2, canvas.height);
-    ctx.lineTo(mouse.x, mouse.y)
-    ctx.strokeStyle = concentricLineColor
-    ctx.stroke()
-    requestAnimationFrame(render);
-  }
-  requestAnimationFrame(render)
-
-  canvas.addEventListener('mousemove', function(e){
-    // 每次一棟都要記錄x  y 座標
-    mouse = {x: e.offsetX, y: e.offsetY}
-  })
-
-  canvas.addEventListener('click', function(e){
-    // 記錄 x y 座標
-    let endMouse = { x: e.offsetX, y: e.offsetY }
-  
-    let mx = endMouse.x - canvas.width / 2 // 鄰邊 - 中心點
-    let my = endMouse.y - canvas.height // 對邊 - 中心點
-    // 斜邊 = Math.sqrt(mx*mx + my+my)
-
-    let ball = {
-      active: true, // 處理生命週期
-      angle:Math.atan(my/mx), // 取得角度
-      position:{
-        x: canvas.width / 2,
-        y: canvas.height,
-      },
-      velocity: 400, // 速度
-      radius: 3, // 半徑
-      endPosition: endMouse, // 球移動最後位置，也是爆炸位置
-    }
-
-    if(mx < 0) ball.velocity *= -1 // 處理象限問題，如果 x 位置在中心點的左邊
-
-    balls.push(ball)
-
-  })
-</script>
+  </script>
 </body>
+
 </html>
