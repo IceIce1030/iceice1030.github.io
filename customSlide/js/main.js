@@ -1,5 +1,5 @@
 function customSlide(option) {
-  // todo ：
+  // todo
   // * option[dot ,[prev, next]]
 
   try {
@@ -230,9 +230,7 @@ function customSlide(option) {
         };
         objPara.originTranslate = _this._getTranslateVal();
         _this.touchTimer('start');
-        if (objPara.slideShow) {
-          _this.autoSlide('stop');
-        }
+        if (objPara.slideShow) _this.autoSlide('stop');
         // console.log('touchstart', startPoint);
       }
 
@@ -291,24 +289,26 @@ function customSlide(option) {
           x: 0,
           y: 0
         };
-        _this.autoSlide('start');
+        if (objPara.slideShow) _this.autoSlide('start');
         // console.log('touchend', { startPoint, endPoint });
       }
     };
     // customSlideContainer Move
     this.containerMove = function(para) {
       // check loop
-      var LimitDistance = 150;
-      if (!objPara.loop && objPara.currentIndex === 0) {
-        para.distance =
-          para.distance > LimitDistance ? LimitDistance : para.distance;
+      var maxDis = (objPara.totalPages - 1) * objPara.size.width * -1;
+      var disPercent = 1;
+      if (!objPara.loop && objPara.currentIndex === 0 && para.distance > 0) {
+        var disPercent = 1 - Math.abs(para.distance - 1) / objPara.size.width;
+        para.distance = para.distance * disPercent;
       } else if (
         !objPara.loop &&
-        objPara.currentIndex === objPara.totalPages - 1
+        objPara.currentIndex === objPara.totalPages - 1 &&
+        para.distance < maxDis
       ) {
-        var maxDis =
-          ((objPara.totalPages - 1) * objPara.size.width + LimitDistance) * -1;
-        para.distance = para.distance < maxDis ? maxDis : para.distance;
+        disPercent =
+          1 - (Math.abs(para.distance) + maxDis) / objPara.size.width;
+        para.distance = maxDis + (para.distance - maxDis) * disPercent;
       }
       var translate = 'translate3d(' + para.distance + 'px,0,0)';
       if (!para.speed) para.speed = 0;
