@@ -1,4 +1,13 @@
 function customSlide(option) {
+  // var objOption = {
+  //   element: '.customSlider', // slide DOM
+  //   animationSpeed: 500, // 動畫滾動速度
+  //   slideshowSpeed: 1500, // 滾動間隔時間
+  //   slideShow: true, // 是否自動播放
+  //   startAt: 2, // 起始頁數(index)
+  //   loop: true // 是否循環
+  // };
+
   // todo
   // * option[dot ,[prev, next]]
 
@@ -166,6 +175,7 @@ function customSlide(option) {
         if (objPara.timer.interval !== '') {
           clearInterval(objPara.timer.interval);
           objPara.timer.interval = '';
+          objPara.timer.duration = 0;
         }
         objPara.timer.interval = setInterval(function() {
           objPara.timer.duration += 10;
