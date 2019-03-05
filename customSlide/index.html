@@ -14,6 +14,7 @@
   <div class="customSlider">
     <div class="customSlideContainer">
       <div data-slide-index="0" class="swipeSlide">
+        Page 1<br />
         Page 1.1<br />
         Page 1.2<br />
         Page 1.3<br />
@@ -30,11 +31,15 @@
       element: '.customSlider', // slide DOM
       animationSpeed: 500, // 動畫滾動速度
       slideshowSpeed: 1500, // 滾動間隔時間
-      // slideShow: true, // 是否自動播放
+      slideShow: true, // 是否自動播放
       startAt: 0, // 起始頁數(index)
       // loop: true // 是否循環
     };
     var slide = new customSlide(objOption);
+    // slide.removeSlideEvent();
+    // slide.addSlideEvent();
+    // slide.autoSlide('start');
+    // slide.autoSlide('stop');
   </script>
 </body>
 

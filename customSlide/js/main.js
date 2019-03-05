@@ -1,8 +1,6 @@
 function customSlide(option) {
   // todo ：
-  // * touchEvent click User Agent
   // * option[dot ,[prev, next]]
-  //
 
   try {
     var objPara = {
@@ -107,6 +105,28 @@ function customSlide(option) {
       var mat_s = mat[1].split(', ');
       return parseFloat(mat_s[4]);
     };
+    // autoSlide
+    this.autoSlide = function(para) {
+      if (para === 'start') {
+        if (objPara.slideInterval !== '') {
+          clearInterval(objPara.slideInterval);
+          objPara.slideInterval = '';
+        }
+        objPara.slideInterval = setInterval(function() {
+          var _index = objPara.loop
+            ? objPara.currentIndex + 1
+            : (objPara.currentIndex + +1 + objPara.totalPages) %
+              objPara.totalPages;
+          _this.jumpPage({
+            index: _index,
+            animate: true
+          });
+        }, objPara.slideshowSpeed);
+      } else if (para === 'stop') {
+        clearInterval(objPara.slideInterval);
+        objPara.slideInterval = '';
+      }
+    };
     // 初始執行
     this.init = function() {
       objPara.size = _this.getContainerSize();
@@ -138,31 +158,46 @@ function customSlide(option) {
       _this.jumpPage({
         index: option.startAt
       });
-      if (objPara.slideShow) {
-        objPara.slideInterval = setInterval(function() {
-          var _index = objPara.loop
-            ? objPara.currentIndex + 1
-            : (objPara.currentIndex + +1 + objPara.totalPages) %
-              objPara.totalPages;
-          _this.jumpPage({
-            index: _index,
-            animate: true
-          });
-        }, objPara.slideshowSpeed);
-      }
+      if (objPara.slideShow) _this.autoSlide('start');
     };
     // touchTimer
     this.touchTimer = function(_switch) {
       if (_switch === 'start') {
+        if (objPara.timer.interval !== '') {
+          clearInterval(objPara.timer.interval);
+          objPara.timer.interval = '';
+        }
         objPara.timer.interval = setInterval(function() {
           objPara.timer.duration += 10;
         }, 10);
       } else if (_switch === 'end') {
         clearInterval(objPara.timer.interval);
+        objPara.timer.interval = '';
         objPara.timer.duration = 0;
       }
     };
-    // add touch and click event
+    // remove touch and mouse event
+    this.removeSlideEvent = function() {
+      var $container = $(objPara.eleContainer);
+      var div = document.createElement('div');
+      var supTouch = (supportTouch = 'ontouchstart' in div);
+      var myEvent = {
+        start: 'mousedown.slide',
+        move: 'mousemove.slide',
+        end: 'mouseup.slide'
+      };
+      if (supTouch) {
+        myEvent = {
+          start: 'touchstart.slide',
+          move: 'touchmove.slide',
+          end: 'touchend.slide'
+        };
+      }
+      $.each(myEvent, function(index, value) {
+        $container.off(value);
+      });
+    };
+    // add touch and mouse event
     this.addSlideEvent = function() {
       var $container = $(objPara.eleContainer);
       var touchDeviation = objPara.touchDeviation;
@@ -170,8 +205,6 @@ function customSlide(option) {
         x: 0,
         y: 0
       });
-      // userAgent
-      var userAgent = navigator.userAgent;
       var div = document.createElement('div');
       var supTouch = (supportTouch = 'ontouchstart' in div);
       var myEvent = {
@@ -197,6 +230,9 @@ function customSlide(option) {
         };
         objPara.originTranslate = _this._getTranslateVal();
         _this.touchTimer('start');
+        if (objPara.slideShow) {
+          _this.autoSlide('stop');
+        }
         // console.log('touchstart', startPoint);
       }
 
@@ -238,7 +274,7 @@ function customSlide(option) {
           100;
         var _path =
           _this._getTranslateVal() - objPara.originTranslate > 0 ? -1 : 1;
-        if (_remainderRate < 15) _path = 0;
+        if (_remainderRate < 10) _path = 0;
 
         if (!objPara.loop) {
           if (
@@ -255,13 +291,14 @@ function customSlide(option) {
           x: 0,
           y: 0
         };
+        _this.autoSlide('start');
         // console.log('touchend', { startPoint, endPoint });
       }
     };
     // customSlideContainer Move
     this.containerMove = function(para) {
       // check loop
-      var LimitDistance = 40;
+      var LimitDistance = 150;
       if (!objPara.loop && objPara.currentIndex === 0) {
         para.distance =
           para.distance > LimitDistance ? LimitDistance : para.distance;
