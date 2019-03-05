@@ -1,6 +1,6 @@
 function customSlide(option) {
   // todo ：
-  // * touchEvent click
+  // * touchEvent click User Agent
   // * option[dot ,[prev, next]]
   //
 
@@ -166,24 +166,48 @@ function customSlide(option) {
     this.addSlideEvent = function() {
       var $container = $(objPara.eleContainer);
       var touchDeviation = objPara.touchDeviation;
-      var startPoint,
-        endPoint = { x: 0, y: 0 };
+      var startPoint = (endPoint = {
+        x: 0,
+        y: 0
+      });
+      // userAgent
+      var userAgent = navigator.userAgent;
+      var div = document.createElement('div');
+      var supTouch = (supportTouch = 'ontouchstart' in div);
+      var myEvent = {
+        start: 'mousedown.slide',
+        move: 'mousemove.slide',
+        end: 'mouseup.slide'
+      };
+      if (supTouch) {
+        myEvent = {
+          start: 'touchstart.slide',
+          move: 'touchmove.slide',
+          end: 'touchend.slide'
+        };
+      }
 
       // start
-      $container.on('touchstart.slide', function(e) {
+      $container.on(myEvent.start, touchStart);
+      // touchStart (mousedown) event
+      function touchStart(e) {
         startPoint = {
-          x: e.touches[0].clientX,
-          y: e.touches[0].clientY
+          x: e.clientX || e.touches[0].clientX,
+          y: e.clientY || e.touches[0].clientY
         };
         objPara.originTranslate = _this._getTranslateVal();
         _this.touchTimer('start');
         // console.log('touchstart', startPoint);
-      });
+      }
+
       // move
-      $container.on('touchmove.slide', function(e) {
+      $container.on(myEvent.move, touchMove);
+      // touchmove (mousemove) event
+      function touchMove(e) {
+        if (startPoint.x === 0 && startPoint.y === 0) return;
         endPoint = {
-          x: e.touches[0].clientX,
-          y: e.touches[0].clientY
+          x: e.clientX || e.touches[0].clientX,
+          y: e.clientY || e.touches[0].clientY
         };
         var moving = {
           x: endPoint.x - startPoint.x, // x > 0 向左 , ｘ < 0 向右
@@ -201,27 +225,54 @@ function customSlide(option) {
             distance: objPara.originTranslate + moving.x
           });
         }
-      });
+      }
+
       // end
-      $container.on('touchend.slide', function(e) {
+      $container.on(myEvent.end, touchEnd);
+      // touchend (mouseup) event
+      function touchEnd(e) {
         _this.touchTimer('end');
-        var _remainder =
+        var _remainderRate =
           (Math.abs(_this._getTranslateVal() - objPara.originTranslate) /
             objPara.size.width) *
           100;
         var _path =
           _this._getTranslateVal() - objPara.originTranslate > 0 ? -1 : 1;
-        if (_remainder > 10)
-          _this.jumpPage({
-            index: objPara.currentIndex + _path,
-            animate: true
-          });
-        startPoint = endPoint = { x: 0, y: 0 };
+        if (_remainderRate < 15) _path = 0;
+
+        if (!objPara.loop) {
+          if (
+            objPara.currentIndex + _path < 0 ||
+            objPara.currentIndex + _path >= objPara.totalPages
+          )
+            _path = 0;
+        }
+        _this.jumpPage({
+          index: objPara.currentIndex + _path,
+          animate: true
+        });
+        startPoint = endPoint = {
+          x: 0,
+          y: 0
+        };
         // console.log('touchend', { startPoint, endPoint });
-      });
+      }
     };
     // customSlideContainer Move
     this.containerMove = function(para) {
+      // check loop
+      var LimitDistance = 40;
+      if (!objPara.loop && objPara.currentIndex === 0) {
+        para.distance =
+          para.distance > LimitDistance ? LimitDistance : para.distance;
+      } else if (
+        !objPara.loop &&
+        objPara.currentIndex === objPara.totalPages - 1
+      ) {
+        var maxDis =
+          ((objPara.totalPages - 1) * objPara.size.width + LimitDistance) * -1;
+        para.distance = para.distance < maxDis ? maxDis : para.distance;
+      }
       var translate = 'translate3d(' + para.distance + 'px,0,0)';
       if (!para.speed) para.speed = 0;
       $(objPara.eleContainer + ' .customSlideContainer').css({
