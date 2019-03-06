@@ -5,11 +5,12 @@ function customSlide(option) {
   //   slideshowSpeed: 1500, // 滾動間隔時間
   //   slideShow: true, // 是否自動播放
   //   startAt: 2, // 起始頁數(index)
-  //   loop: true // 是否循環
+  //   loop: true, // 是否循環
+  //   slideOption: ['dot', 'controlNav'] // slideOption
   // };
 
   // todo
-  // * option[dot ,[prev, next]]
+  // * callback function('after',before)
 
   try {
     var objPara = {
@@ -29,7 +30,10 @@ function customSlide(option) {
       timer: {
         interval: '',
         duration: 0
-      } // timer interval
+      }, // timer interval
+      slideOption: option.slideOption, // slideOption
+      before: option.before, // jump 之前
+      after: option.after // jump 之後
     };
     var $container = $(objPara.eleContainer);
     Object.defineProperty(this, 'objPara', {
@@ -168,6 +172,69 @@ function customSlide(option) {
         index: option.startAt
       });
       if (objPara.slideShow) _this.autoSlide('start');
+      // set slideOption
+      for (var i = 0; i < objPara.slideOption.length; i++) {
+        _this.setSlideOption(objPara.slideOption[i]);
+      }
+    };
+    this.setSlideOption = function(option) {
+      var dotOption = '';
+      var $container = $(objPara.eleContainer);
+      switch (option) {
+        case 'dot':
+          dotOption = '<div class="dotOption">';
+          for (var i = 0; i < objPara.totalPages; i++) {
+            var active = '';
+            if (i === objPara.currentIndex) active = 'active';
+            dotOption +=
+              '<div data-dot-index="' +
+              i +
+              '" class="dot ' +
+              active +
+              '"></div>';
+          }
+          $container.append(dotOption);
+          $('.dotOption > .dot').on('click', function() {
+            var $this = $(this);
+            var dotIndex = $this.data('dot-index');
+            $this
+              .addClass('active')
+              .siblings('.dot')
+              .removeClass('active');
+
+            _this.jumpPage({
+              index: dotIndex,
+              animate: true
+            });
+          });
+          break;
+        case 'controlNav':
+          dotOption =
+            '<div data-nav="prev" class="controlNav prev"></div><div data-nav="next" class="controlNav next"></div>';
+          $container.append(dotOption);
+          $('.controlNav').on('click', function() {
+            var _path = $(this).data('nav') === 'prev' ? -1 : +1;
+            var prevNext = 0;
+            var _index = objPara.loop
+              ? objPara.currentIndex + _path
+              : (objPara.currentIndex + +_path + objPara.totalPages) %
+                objPara.totalPages;
+            _this.jumpPage({
+              index: _index,
+              animate: true
+            });
+            if (objPara.slideOption.indexOf('dot') != -1) {
+              $('.dotOption > .dot').removeClass('active');
+              $('.dotOption > .dot')
+                .eq(objPara.currentIndex)
+                .addClass('active');
+            }
+          });
+          break;
+
+        default:
+          break;
+      }
     };
     // touchTimer
     this.touchTimer = function(_switch) {
