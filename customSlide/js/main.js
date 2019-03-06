@@ -6,7 +6,13 @@ function customSlide(option) {
   //   slideShow: true, // 是否自動播放
   //   startAt: 2, // 起始頁數(index)
   //   loop: true, // 是否循環
-  //   slideOption: ['dot', 'controlNav'] // slideOption
+  //   slideOption: ['dot', 'controlNav'], // slideOption
+  //  before: function () {
+  //    console.log('exec function before jump !');
+  //  },
+  //  after: function () {
+  //    console.log('exec function after jump !');
+  //  }
   // };
 
   // todo
@@ -14,7 +20,7 @@ function customSlide(option) {
 
   try {
     var objPara = {
-      eleContainer: option.element, // container Dom
+      eleContainer: option.element, // container DOM
       size: {}, // container 高度 寬度
       currentIndex: 0, // 目前頁數
       totalPages: 0, // 總頁數
@@ -24,7 +30,7 @@ function customSlide(option) {
       loop: option.loop || false, // 是否循環
       slideInterval: '', // save slide setInterval
       touchDeviation: 50, // 碰觸偏差值
-      touchTime: 150, // touch 時間
+      touchTime: 150, // touching 時間
       movingStatus: false, // 移動狀態
       originTranslate: '', // moving start origin position
       timer: {
@@ -32,8 +38,8 @@ function customSlide(option) {
         duration: 0
       }, // timer interval
       slideOption: option.slideOption, // slideOption
-      before: option.before, // jump 之前
-      after: option.after // jump 之後
+      before: option.before, // jump 之前 function
+      after: option.after // jump 之後 function
     };
     var $container = $(objPara.eleContainer);
     Object.defineProperty(this, 'objPara', {
@@ -358,10 +364,12 @@ function customSlide(option) {
           )
             _path = 0;
         }
-        _this.jumpPage({
-          index: objPara.currentIndex + _path,
-          animate: true
-        });
+        if (objPara.currentIndex !== objPara.currentIndex + _path) {
+          _this.jumpPage({
+            index: objPara.currentIndex + _path,
+            animate: true
+          });
+        }
         startPoint = endPoint = {
           x: 0,
           y: 0
@@ -398,37 +406,57 @@ function customSlide(option) {
     };
     // 跳頁 ({index, animate})
     this.jumpPage = function(para) {
-      var _index = (objPara.currentIndex = para.index);
-      var _multiple = objPara.loop ? _index + 1 : _index;
-      var _distance = _multiple * objPara.size.width * -1;
-      var _speed = para.animate ? objPara.animationSpeed : 0;
-      var $container = $(objPara.eleContainer + ' .customSlideContainer');
-      _this.containerMove({
-        distance: _distance,
-        speed: _speed
-      });
-      if (_speed !== 0) {
-        objPara.movingStatus = true;
-        // 還原 transitionDuration
-        setTimeout(function() {
-          $container.css({
-            'transition-duration': '0ms'
-          });
-          // 若是循環模式 (檢查)
-          if (objPara.loop) {
-            if (objPara.currentIndex === objPara.totalPages) {
-              // 若已經到 fake 最後一頁
-              objPara.currentIndex = 0;
-            } else if (objPara.currentIndex === -1) {
-              // 若已經到 fake 第一頁
-              objPara.currentIndex = objPara.totalPages - 1;
-            }
-            _this.jumpPage({
-              index: objPara.currentIndex
+      var $d = $.Deferred();
+      if (para.animate) {
+        $d.promise()
+          .then(jumping)
+          .then(afterJump);
+        beforeJump();
+      } else {
+        jumping();
+      }
+      function beforeJump() {
+        objPara.before();
+        jumping();
+      }
+      function afterJump() {
+        objPara.after();
+      }
+
+      function jumping() {
+        var _index = (objPara.currentIndex = para.index);
+        var _multiple = objPara.loop ? _index + 1 : _index;
+        var _distance = _multiple * objPara.size.width * -1;
+        var _speed = para.animate ? objPara.animationSpeed : 0;
+        var $container = $(objPara.eleContainer + ' .customSlideContainer');
+        _this.containerMove({
+          distance: _distance,
+          speed: _speed
+        });
+        if (_speed !== 0) {
+          objPara.movingStatus = true;
+          // 還原 transitionDuration
+          setTimeout(function() {
+            $container.css({
+              'transition-duration': '0ms'
             });
-          }
-          objPara.movingStatus = false;
-        }, _speed);
+            // 若是循環模式 (檢查)
+            if (objPara.loop) {
+              if (objPara.currentIndex === objPara.totalPages) {
+                // 若已經到 fake 最後一頁
+                objPara.currentIndex = 0;
+              } else if (objPara.currentIndex === -1) {
+                // 若已經到 fake 第一頁
+                objPara.currentIndex = objPara.totalPages - 1;
+              }
+              _this.jumpPage({
+                index: objPara.currentIndex
+              });
+            }
+            objPara.movingStatus = false;
+            $d.resolve();
+          }, _speed);
+        }
       }
     };
     // init
