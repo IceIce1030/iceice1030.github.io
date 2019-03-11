@@ -34,7 +34,7 @@ function customSlide(option) {
       loop: option.loop || false, // 是否循環
       slideInterval: '', // save slide setInterval
       touchDeviation: 50, // 碰觸偏差值
-      touchTime: 150, // touching 時間
+      touchTime: 0, // touching 時間
       movingStatus: false, // 移動狀態
       originTranslate: '', // moving start origin position
       timer: {
@@ -138,7 +138,7 @@ function customSlide(option) {
         objPara.slideInterval = setInterval(function() {
           var _index = objPara.loop
             ? objPara.currentIndex + 1
-            : (objPara.currentIndex + +1 + objPara.totalPages) %
+            : (objPara.currentIndex + 1 + objPara.totalPages) %
               objPara.totalPages;
           _this.jumpPage({
             index: _index,
@@ -199,7 +199,7 @@ function customSlide(option) {
             var active = '';
             if (i === objPara.currentIndex) active = 'active';
             dotOption +=
-              '<div data-dot-index="' +
+              '<div data-option="true" data-dot-index="' +
               i +
               '" class="dot ' +
               active +
@@ -207,6 +207,7 @@ function customSlide(option) {
           }
           $container.append(dotOption);
           $('.dotOption > .dot').on('click', function() {
+            if (objPara.slideShow) _this.autoSlide('stop');
             var $this = $(this);
             var dotIndex = $this.data('dot-index');
             $this
@@ -222,9 +223,10 @@ function customSlide(option) {
           break;
         case 'controlNav':
           dotOption =
-            '<div data-nav="prev" class="controlNav prev"></div><div data-nav="next" class="controlNav next"></div>';
+            '<div data-option="true" data-nav="prev" class="controlNav prev"></div><div data-option="true" data-nav="next" class="controlNav next"></div>';
           $container.append(dotOption);
           $('.controlNav').on('click', function() {
+            if (objPara.slideShow) _this.autoSlide('stop');
             var _path = $(this).data('nav') === 'prev' ? -1 : +1;
             var prevNext = 0;
             var _index = objPara.loop
@@ -257,8 +259,8 @@ function customSlide(option) {
           objPara.timer.duration = 0;
         }
         objPara.timer.interval = setInterval(function() {
-          objPara.timer.duration += 10;
-        }, 10);
+          objPara.timer.duration += 1;
+        }, 1);
       } else if (_switch === 'end') {
         clearInterval(objPara.timer.interval);
         objPara.timer.interval = '';
@@ -266,7 +268,8 @@ function customSlide(option) {
       }
     };
     // remove touch and mouse event
-    this.removeSlideEvent = function() {
+    this.removeSlideEvent = function(para) {
+      var eventStr = para || 'all';
       var $container = $(objPara.eleContainer);
       var div = document.createElement('div');
       var supTouch = (supportTouch = 'ontouchstart' in div);
@@ -282,12 +285,26 @@ function customSlide(option) {
           end: 'touchend.slide'
         };
       }
-      $.each(myEvent, function(index, value) {
-        $container.off(value);
-      });
+      if (eventStr === 'all') {
+        $.each(myEvent, function(index, value) {
+          $container.off(value);
+        });
+      }
+      if (eventStr.indexOf('start' !== -1)) {
+        $container.off(myEvent.start);
+      }
+      if (eventStr.indexOf('move' !== -1)) {
+        $container.off(myEvent.move);
+      }
+      if (eventStr.indexOf('end' !== -1)) {
+        $container.off(myEvent.end);
+      }
     };
     // add touch and mouse event
     this.addSlideEvent = function() {
+      var checkElement = function(ele) {
+        return $(ele.target).data('option') ? true : false;
+      };
       var $container = $(objPara.eleContainer);
       var touchDeviation = objPara.touchDeviation;
       var startPoint = (endPoint = {
@@ -313,6 +330,7 @@ function customSlide(option) {
       $container.on(myEvent.start, touchStart);
       // touchStart (mousedown) event
       function touchStart(e) {
+        if (checkElement(e)) return;
         startPoint = {
           x: e.clientX || e.touches[0].clientX,
           y: e.clientY || e.touches[0].clientY
@@ -321,6 +339,10 @@ function customSlide(option) {
         _this.touchTimer('start');
         if (objPara.slideShow) _this.autoSlide('stop');
         // console.log('touchstart', startPoint);
+        // move event function
+        $container.on(myEvent.move, throttle(touchMove, 10));
+        // end event function
+        $container.on(myEvent.end, touchEnd);
       }
       // throttle function
       var throttle = function(func, delay) {
@@ -336,10 +358,10 @@ function customSlide(option) {
           }
         };
       };
-      // move event function
-      $container.on(myEvent.move, throttle(touchMove, 50));
+
       // touchmove (mousemove) event
       function touchMove(e) {
+        if (checkElement(e)) return;
         if (startPoint.x === 0 && startPoint.y === 0) return;
         endPoint = {
           x: e.clientX || e.touches[0].clientX,
@@ -351,47 +373,46 @@ function customSlide(option) {
         };
         var touchTime = objPara.touchTime;
         var duration = objPara.timer.duration;
-        if (
-          moving.y < touchDeviation &&
-          duration > touchTime &&
-          !objPara.movingStatus
-        ) {
-          // console.log('touchMove', moving);
+        if (moving.y < touchDeviation) {
           _this.containerMove({
             distance: objPara.originTranslate + moving.x
           });
         }
       }
 
-      // end event function
-      $container.on(myEvent.end, touchEnd);
       // touchend (mouseup) event
       function touchEnd(e) {
-        _this.touchTimer('end');
+        if (checkElement(e)) return;
         var _remainderRate =
           (Math.abs(_this._getTranslateVal() - objPara.originTranslate) /
             objPara.size.width) *
           100;
         var _path =
           _this._getTranslateVal() - objPara.originTranslate > 0 ? -1 : 1;
-        if (_remainderRate < 10) _path = 0;
+        if (_remainderRate < 10 && objPara.timer.duration > objPara.touchTime) {
+          _path = 0;
+        }
 
         if (!objPara.loop) {
           if (
             objPara.currentIndex + _path < 0 ||
             objPara.currentIndex + _path >= objPara.totalPages
-          )
+          ) {
             _path = 0;
+          }
         }
         _this.jumpPage({
           index: objPara.currentIndex + _path,
           animate: true
         });
+
         startPoint = endPoint = {
           x: 0,
           y: 0
         };
         if (objPara.slideShow) _this.autoSlide('start');
+        _this.touchTimer('end');
+        _this.removeSlideEvent(['move', 'end']);
         // console.log('touchend', { startPoint, endPoint });
       }
     };
@@ -425,9 +446,7 @@ function customSlide(option) {
     this.jumpPage = function(para) {
       var $d = $.Deferred();
       if (para.animate) {
-        $d.promise()
-          .then(jumping)
-          .then(afterJump);
+        $d.promise().then(afterJump);
         beforeJump();
       } else {
         jumping();
@@ -439,6 +458,8 @@ function customSlide(option) {
       function afterJump() {
         objPara.after();
       }
+
+      // jumping();
 
       function jumping() {
         var _index = (objPara.currentIndex = para.index);
@@ -453,26 +474,38 @@ function customSlide(option) {
         if (_speed !== 0) {
           objPara.movingStatus = true;
           // 還原 transitionDuration
+          var fake = false;
+          if (objPara.currentIndex === objPara.totalPages) {
+            // 若已經到 fake 最後一頁
+            objPara.currentIndex = 0;
+            fake = true;
+          } else if (objPara.currentIndex === -1) {
+            // 若已經到 fake 第一頁
+            objPara.currentIndex = objPara.totalPages - 1;
+            fake = true;
+          }
           setTimeout(function() {
             $container.css({
               'transition-duration': '0ms'
             });
             // 若是循環模式 (檢查)
             if (objPara.loop) {
-              if (objPara.currentIndex === objPara.totalPages) {
-                // 若已經到 fake 最後一頁
-                objPara.currentIndex = 0;
-              } else if (objPara.currentIndex === -1) {
-                // 若已經到 fake 第一頁
-                objPara.currentIndex = objPara.totalPages - 1;
-              }
-              _this.jumpPage({
-                index: objPara.currentIndex
-              });
+              if (fake)
+                _this.jumpPage({
+                  index: objPara.currentIndex
+                });
             }
+            if (objPara.slideShow) _this.autoSlide('start');
             objPara.movingStatus = false;
             $d.resolve();
           }, _speed);
+        }
+        if (objPara.slideOption.indexOf('dot') !== -1) {
+          $(objPara.eleContainer + ' .dot')
+            .eq(objPara.currentIndex)
+            .addClass('active')
+            .siblings('.dot')
+            .removeClass('active');
         }
       }
     };

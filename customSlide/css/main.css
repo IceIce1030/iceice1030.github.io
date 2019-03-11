@@ -14,6 +14,8 @@
   outline: 1px solid #000;
   /* overflow: hidden; */
   margin: 50px auto;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 
 .customSlideContainer:after {

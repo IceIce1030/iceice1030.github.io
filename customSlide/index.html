@@ -30,15 +30,15 @@
         element: '.customSlider', // slide DOM
         animationSpeed: 500, // 動畫滾動速度
         slideshowSpeed: 1500, // 滾動間隔時間
-        // slideShow: true, // 是否自動播放
-        startAt: 2, // 起始頁數(index)
-        // loop: true // 是否循環
-        // slideOption: ['dot', 'controlNav'], // slideOption
+        slideShow: true, // 是否自動播放
+        startAt: 0, // 起始頁數(index)
+        loop: true, // 是否循環
+        slideOption: ['dot', 'controlNav'], // slideOption
         before: function() {
-          console.log('exec function before jump !');
+          // console.log('exec function before jump !');
         },
         after: function() {
-          console.log('exec function after jump !');
+          // console.log('exec function after jump !');
         }
       };
       var slide = new customSlide(objOption);
