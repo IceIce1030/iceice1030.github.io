@@ -21,6 +21,7 @@ function customSlide(option) {
   // slide.autoSlide('stop'); // 停止輪播
 
   // todo
+  // *
 
   try {
     var objPara = {
@@ -106,7 +107,6 @@ function customSlide(option) {
           width: objPara.size.width,
           float: 'left',
           'overflow-y': 'scroll'
-          // 'outline' : '1px solid #f00', // 測試用
         }
       );
     };
@@ -272,13 +272,13 @@ function customSlide(option) {
       var eventStr = para || 'all';
       var $container = $(objPara.eleContainer);
       var div = document.createElement('div');
-      var supTouch = (supportTouch = 'ontouchstart' in div);
+      var isSupTouch = (supportTouch = 'ontouchstart' in div);
       var myEvent = {
         start: 'mousedown.slide',
         move: 'mousemove.slide',
         end: 'mouseup.slide'
       };
-      if (supTouch) {
+      if (isSupTouch) {
         myEvent = {
           start: 'touchstart.slide',
           move: 'touchmove.slide',
@@ -312,13 +312,13 @@ function customSlide(option) {
         y: 0
       });
       var div = document.createElement('div');
-      var supTouch = (supportTouch = 'ontouchstart' in div);
+      var isSupTouch = (supportTouch = 'ontouchstart' in div);
       var myEvent = {
         start: 'mousedown.slide',
         move: 'mousemove.slide',
         end: 'mouseup.slide'
       };
-      if (supTouch) {
+      if (isSupTouch) {
         myEvent = {
           start: 'touchstart.slide',
           move: 'touchmove.slide',
@@ -339,9 +339,8 @@ function customSlide(option) {
         _this.touchTimer('start');
         if (objPara.slideShow) _this.autoSlide('stop');
         // console.log('touchstart', startPoint);
-        // move event function
+        // move event function and end event function
         $container.on(myEvent.move, throttle(touchMove, 10));
-        // end event function
         $container.on(myEvent.end, touchEnd);
       }
       // throttle function
@@ -371,8 +370,6 @@ function customSlide(option) {
           x: endPoint.x - startPoint.x, // x > 0 向左 , ｘ < 0 向右
           y: endPoint.y - startPoint.y
         };
-        var touchTime = objPara.touchTime;
-        var duration = objPara.timer.duration;
         if (moving.y < touchDeviation) {
           _this.containerMove({
             distance: objPara.originTranslate + moving.x
@@ -458,9 +455,7 @@ function customSlide(option) {
       function afterJump() {
         objPara.after();
       }
-
       // jumping();
-
       function jumping() {
         var _index = (objPara.currentIndex = para.index);
         var _multiple = objPara.loop ? _index + 1 : _index;
