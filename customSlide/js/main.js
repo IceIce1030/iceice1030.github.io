@@ -37,7 +37,7 @@ function customSlide(option) {
         interval: '',
         duration: 0
       }, // timer interval
-      slideOption: option.slideOption, // slideOption
+      slideOption: option.slideOption || [], // slideOption
       before: option.before, // jump 之前 function
       after: option.after // jump 之後 function
     };
@@ -179,8 +179,10 @@ function customSlide(option) {
       });
       if (objPara.slideShow) _this.autoSlide('start');
       // set slideOption
-      for (var i = 0; i < objPara.slideOption.length; i++) {
-        _this.setSlideOption(objPara.slideOption[i]);
+      if (objPara.slideOption.length > 0) {
+        for (var i = 0; i < objPara.slideOption.length; i++) {
+          _this.setSlideOption(objPara.slideOption[i]);
+        }
       }
     };
     this.setSlideOption = function(option) {
@@ -303,7 +305,7 @@ function customSlide(option) {
         };
       }
 
-      // start
+      // start event function
       $container.on(myEvent.start, touchStart);
       // touchStart (mousedown) event
       function touchStart(e) {
@@ -316,9 +318,22 @@ function customSlide(option) {
         if (objPara.slideShow) _this.autoSlide('stop');
         // console.log('touchstart', startPoint);
       }
-
-      // move
-      $container.on(myEvent.move, touchMove);
+      // throttle function
+      var throttle = function(func, delay) {
+        var timer = null;
+        return function() {
+          var context = this;
+          var args = arguments;
+          if (!timer) {
+            timer = setTimeout(function() {
+              func.apply(context, args);
+              timer = null;
+            }, delay);
+          }
+        };
+      };
+      // move event function
+      $container.on(myEvent.move, throttle(touchMove, 50));
       // touchmove (mousemove) event
       function touchMove(e) {
         if (startPoint.x === 0 && startPoint.y === 0) return;
@@ -344,7 +359,7 @@ function customSlide(option) {
         }
       }
 
-      // end
+      // end event function
       $container.on(myEvent.end, touchEnd);
       // touchend (mouseup) event
       function touchEnd(e) {
@@ -364,12 +379,10 @@ function customSlide(option) {
           )
             _path = 0;
         }
-        if (objPara.currentIndex !== objPara.currentIndex + _path) {
-          _this.jumpPage({
-            index: objPara.currentIndex + _path,
-            animate: true
-          });
-        }
+        _this.jumpPage({
+          index: objPara.currentIndex + _path,
+          animate: true
+        });
         startPoint = endPoint = {
           x: 0,
           y: 0
@@ -462,8 +475,6 @@ function customSlide(option) {
     // init
     this.init();
   } catch (error) {
-    console.log({
-      error
-    });
+    console.log('Error=>', error);
   }
 }
