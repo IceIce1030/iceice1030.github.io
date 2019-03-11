@@ -5,18 +5,22 @@ function customSlide(option) {
   //   slideshowSpeed: 1500, // 滾動間隔時間
   //   slideShow: true, // 是否自動播放
   //   startAt: 2, // 起始頁數(index)
-  //   loop: true, // 是否循環
+  //   loop: true // 是否循環
   //   slideOption: ['dot', 'controlNav'], // slideOption
-  //  before: function () {
-  //    console.log('exec function before jump !');
-  //  },
-  //  after: function () {
-  //    console.log('exec function after jump !');
-  //  }
+  //   before: function() {
+  //     console.log('exec function before jump !');
+  //   },
+  //   after: function() {
+  //     console.log('exec function after jump !');
+  //   }
   // };
+  // var slide = new customSlide(objOption);
+  // slide.removeSlideEvent(); // 移除事件
+  // slide.addSlideEvent(); // 註冊事件
+  // slide.autoSlide('start'); // 開始自動輪播
+  // slide.autoSlide('stop'); // 停止輪播
 
   // todo
-  // * callback function('after',before)
 
   try {
     var objPara = {
