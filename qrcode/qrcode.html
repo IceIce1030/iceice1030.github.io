@@ -23,12 +23,19 @@
         var msg = `Scan result: ${decodedText}`,
           decodedResult;
         console.log({ msg });
-        document.querySelector('#result').textContent = msg;
+        document.querySelector('#result').innerText = msg;
       }
 
       var html5QrcodeScanner = new Html5QrcodeScanner('reader', {
         fps: 10,
-        qrbox: 250,
+        qrbox: { width: 250, height: 250 },
+        // Important notice: this is experimental feature, use it at your
+        // own risk. See documentation in
+        // mebjas@/html5-qrcode/src/experimental-features.ts
+        experimentalFeatures: {
+          useBarCodeDetectorIfSupported: true,
+        },
+        rememberLastUsedCamera: true,
       });
       html5QrcodeScanner.render(onScanSuccess);
     </script>
