@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>前端掃描 QR Code</title>
+  </head>
+
+  <body>
+    <div style="width: 500px" id="reader"></div>
+    <div>
+      <h1>qr-code message</h1>
+      <p id="result"></p>
+    </div>
+    <script
+      src="https://unpkg.com/html5-qrcode"
+      type="text/javascript"
+    ></script>
+    <script>
+      function onScanSuccess(decodedText, decodedResult) {
+        // Handle on success condition with the decoded text or result.
+        var msg = `Scan result: ${decodedText}`,
+          decodedResult;
+        console.log({ msg });
+        document.querySelector('#result').textContent = msg;
+      }
+
+      var html5QrcodeScanner = new Html5QrcodeScanner('reader', {
+        fps: 10,
+        qrbox: 250,
+      });
+      html5QrcodeScanner.render(onScanSuccess);
+    </script>
+  </body>
+</html>
