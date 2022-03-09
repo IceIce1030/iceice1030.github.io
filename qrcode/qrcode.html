@@ -12,12 +12,30 @@
     <div>
       <h1>qr-code message</h1>
       <p id="result"></p>
+      <p id="addNumTxt">0</p>
+      <div>
+        <button id="addNumBtn">number + 1</button>
+      </div>
+      <br /><br /><br /><br /><br />
+      <div>
+        <button>
+          <a href="https://gui.deeply-touching.com">go next page</a>
+        </button>
+      </div>
     </div>
-    <script
+    <!-- <script
       src="https://unpkg.com/html5-qrcode"
       type="text/javascript"
-    ></script>
+    ></script> -->
+    <script src="js/html5-qrcode.min.js" type="text/javascript"></script>
+    <script src="js/jquery.js" type="text/javascript"></script>
     <script>
+      $('#addNumBtn').on('click', function () {
+        var val = $('#addNumTxt').text();
+        val++;
+        $('#addNumTxt').text(val);
+      });
+
       function onScanSuccess(decodedText, decodedResult) {
         // Handle on success condition with the decoded text or result.
         var msg = `Scan result: ${decodedText}`,

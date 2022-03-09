@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>other</title>
+  </head>
+
+  <body>
+    <div>
+      <p id="addNumTxt">0</p>
+      <div>
+        <button id="addNumBtn">number + 1</button>
+      </div>
+      <br /><br /><br /><br /><br />
+      <div>
+        <button>
+          <a href="https://gui.deeply-touching.com">go next page</a>
+        </button>
+      </div>
+    </div>
+
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script>
+      $('#addNumBtn').on('click', function () {
+        var val = $('#addNumTxt').text();
+        val++;
+        $('#addNumTxt').text(val);
+      });
+    </script>
+  </body>
+</html>
