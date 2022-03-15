@@ -15,6 +15,7 @@
       <p id="addNumTxt">0</p>
       <div>
         <button id="addNumBtn">number + 1</button>
+        <button id="minusNumBtn"></button>
       </div>
       <br /><br /><br /><br /><br />
       <div>
@@ -33,6 +34,11 @@
       $('#addNumBtn').on('click', function () {
         var val = $('#addNumTxt').text();
         val++;
+        $('#addNumTxt').text(val);
+      });
+      $('#minusNumBtn').on('click', function () {
+        var val = $('#addNumTxt').text();
+        val--;
         $('#addNumTxt').text(val);
       });
 
