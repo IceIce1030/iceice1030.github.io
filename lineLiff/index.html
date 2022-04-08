@@ -24,6 +24,12 @@
       <h1>line liff</h1>
       <div class="u-full-width" id="result-init" ></div>
       <div class="u-full-width" id="result-basic" ></div>
+
+      <div>
+        <blockquote class="wp-block-quote"><p>Do not track a user with cookies, localStorage, or sessionStorage or link LINE user information with external session information without getting the user’s consent. While you can use cookies, localStorage, or sessionStorage with the LIFF app, their use may be restricted in the future.</p><p>（未經用戶同意，請勿使用 cookie，localStorage 或 sessionStorage 跟踪用戶或將 LINE 用戶信息與外部會話信息鏈接。雖然您可以通過 LIFF 應用程序使用 cookie，localStorage 或 sessionStorage，但將來可能會限制它們的使用。）</p><cite><a href="https://developers.line.biz/zh-hant/docs/liff/overview/#development-guidelines" target="_blank" rel="noreferrer noopener">Development guidelines</a></cite></blockquote>
+      </div>
+      <div class="u-full-width" id="result-profile" ></div>
+      
       
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -65,6 +71,23 @@
         使用者的 LINE 版本  ${a6} <br/>
       `;
       $('#result-basic').html(res);
+
+
+      var userProfile =  liff.getProfile();
+      // obj =  {
+      //   "userId": "U4af4980629...",
+      //   "displayName": "Brown",
+      //   "pictureUrl": "https://profile.line-scdn.net/abcdefghijklmn",
+      //   "statusMessage": "Hello, LINE!"
+      // }
+      var res1 = `
+        userId:${userProfile['userId']}<br>
+        暱稱:${userProfile['displayName']}<br>
+        大頭照的圖片路徑:${userProfile['pictureUrl']}<br>
+        狀態消息:${userProfile['statusMessage']}<br>
+      `;
+      $('#result-profile').html(res1);
+
         
       }).catch(function(error) {
         $('#result-init').text(error);
