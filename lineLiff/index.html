@@ -38,11 +38,7 @@
         $('#result-init').text('LIFF init');
         
         // 這邊開始寫使用其他功能
-        
-      }).catch(function(error) {
-        $('#result-init').text(error);
-      });
-      // 引用 LIFF SDK 的頁面，頁面中的 lang 值
+         // 引用 LIFF SDK 的頁面，頁面中的 lang 值
       var a1 = liff.getLanguage();
 
       // LIFF SDK 的版本
@@ -69,6 +65,11 @@
         使用者的 LINE 版本  ${a6} <br/>
       `;
       $('#result-basic').html(res);
+        
+      }).catch(function(error) {
+        $('#result-init').text(error);
+      });
+     
 
     </script>
   </body>
