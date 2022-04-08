@@ -44,49 +44,64 @@
         $('#result-init').text('LIFF init');
         
         // 這邊開始寫使用其他功能
-         // 引用 LIFF SDK 的頁面，頁面中的 lang 值
-      var a1 = liff.getLanguage();
+        // 引用 LIFF SDK 的頁面，頁面中的 lang 值
+        var a1 = liff.getLanguage();
 
-      // LIFF SDK 的版本
-      var a2 = liff.getVersion();
+        // LIFF SDK 的版本
+        var a2 = liff.getVersion();
 
-      // 回傳是否由 LINE App 存取
-      var a3 = liff.isInClient();
+        // 回傳是否由 LINE App 存取
+        var a3 = liff.isInClient();
 
-      // 使用者是否登入 LINE 帳號
-      var a4 = liff.isLoggedIn();
+        // 使用者是否登入 LINE 帳號
+        var a4 = liff.isLoggedIn();
 
-      // 回傳使用者作業系統：ios、android、web
-      var a5 = liff.getOS();
+        // 回傳使用者作業系統：ios、android、web
+        var a5 = liff.getOS();
 
-      // 使用者的 LINE 版本
-      var a6 = liff.getLineVersion();
+        // 使用者的 LINE 版本
+        var a6 = liff.getLineVersion();
 
-      var res = `
-        引用 LIFF SDK 的頁面，頁面中的 lang 值  ${a1} <br/>
-        LIFF SDK 的版本  ${a2} <br/>
-        回傳是否由 LINE App 存取  ${a3} <br/>
-        使用者是否登入 LINE 帳號  ${a4} <br/>
-        回傳使用者作業系統：ios、android、web  ${a5} <br/>
-        使用者的 LINE 版本  ${a6} <br/>
-      `;
-      $('#result-basic').html(res);
+        var res = `
+          引用 LIFF SDK 的頁面，頁面中的 lang 值  ${a1} <br/>
+          LIFF SDK 的版本  ${a2} <br/>
+          回傳是否由 LINE App 存取  ${a3} <br/>
+          使用者是否登入 LINE 帳號  ${a4} <br/>
+          回傳使用者作業系統：ios、android、web  ${a5} <br/>
+          使用者的 LINE 版本  ${a6} <br/>
+        `;
+        $('#result-basic').html(res);
 
+        if(!a4){
+          // 登入
+liff.login({
+  // 使用者登入後要去到哪個頁面
+  // redirectUri: 'http://127.0.0.1:5500/lineLiff/index.html'
+});
+        }
 
-      var userProfile =  liff.getProfile();
-      // obj =  {
-      //   "userId": "U4af4980629...",
-      //   "displayName": "Brown",
-      //   "pictureUrl": "https://profile.line-scdn.net/abcdefghijklmn",
-      //   "statusMessage": "Hello, LINE!"
-      // }
-      var res1 = `
-        userId:${userProfile['userId']}<br>
-        暱稱:${userProfile['displayName']}<br>
-        大頭照的圖片路徑:${userProfile['pictureUrl']}<br>
-        狀態消息:${userProfile['statusMessage']}<br>
-      `;
-      $('#result-profile').html(res1);
+        var context =  liff.getContext();
+        console.log({
+          context
+        })
+// return;
+        var userProfile = liff.getProfile();
+        console.log({
+          userProfile
+        })
+        // obj =  {
+        //   "userId": "U4af4980629...",
+        //   "displayName": "Brown",
+        //   "pictureUrl": "https://profile.line-scdn.net/abcdefghijklmn",
+        //   "statusMessage": "Hello, LINE!"
+        // }
+        var res1 = `
+          userId:${userProfile['userId']}<br>
+          暱稱:${userProfile['displayName']}<br>
+          大頭照的圖片路徑:${userProfile['pictureUrl']}<br>
+          狀態消息:${userProfile['statusMessage']}<br>
+        `;
+        $('#result-profile').html(res1);
 
         
       }).catch(function(error) {
