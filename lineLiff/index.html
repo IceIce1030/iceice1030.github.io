@@ -22,11 +22,25 @@
   
     <div class="container">
       <h1>line liff</h1>
+      <div class="u-full-width" id="result-init" ></div>
       <div class="u-full-width" id="result-basic" ></div>
       
     </div>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script>
+
+      var liffID = '1657038864-r6y6ea4k';
+
+      liff.init({
+        liffId: liffID
+      }).then(function() {
+        $('#result-init').text('LIFF init');
+        
+        // 這邊開始寫使用其他功能
+        
+      }).catch(function(error) {
+        $('#result-init').text(error);
+      });
       // 引用 LIFF SDK 的頁面，頁面中的 lang 值
       var a1 = liff.getLanguage();
 
