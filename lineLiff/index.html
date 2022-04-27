@@ -46,6 +46,14 @@
       liff.init({
         liffId: liffID
       }).then(function() {
+
+        initializeApp();
+
+        
+      }).catch(function(error) {
+        $('#result-init').text(error);
+      });
+     function initializeApp(){
         $('#result-init').text('LIFF init');
         
         // 這邊開始寫使用其他功能
@@ -144,11 +152,7 @@
             })
         })
 
-        
-      }).catch(function(error) {
-        $('#result-init').text(error);
-      });
-     
+     }
 
     </script>
   </body>
